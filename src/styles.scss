@@ -1,0 +1,25 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// создаём тему (Material 3)
+$theme: mat.define-theme((
+  color: (
+    theme-type: dark, // или dark
+    primary: mat.$green-palette,
+    tertiary: mat.$orange-palette,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+// подключаем ВСЕ стили компонентов
+:root {
+  @include mat.all-component-themes($theme);
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}

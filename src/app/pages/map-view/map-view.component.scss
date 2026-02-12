@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  .tools {
+    position: absolute;
+    background: white;
+    z-index: 2;
+    padding: 8px;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    -webkit-box-shadow: 4px 4px 84px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 4px 4px 84px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 4px 4px 84px 0px rgba(34, 60, 80, 0.2);
+
+    &-top {
+      left: 50px;
+      top: 50px;
+    }
+
+    &-bottom {
+      left: 50px;
+      bottom: 50px;
+    }
+  }
+}

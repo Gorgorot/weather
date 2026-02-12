@@ -1,12 +1,20 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection,
+  provideZonelessChangeDetection
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
+import { MAP_API_KEY } from './app.module';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
+    provideZonelessChangeDetection(),
+    provideRouter(routes),
+    {
+      provide: MAP_API_KEY,
+      useValue: '2d824876-2334-4c72-9a05-b122d6f7ecbe',
+    }
   ]
 };
