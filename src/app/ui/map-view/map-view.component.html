@@ -2,14 +2,16 @@
 
 <div class="map-container" #mapContainer [style.width.px]="_mapSize.width" [style.height.px]="_mapSize.height"></div>
 
-<div class="tools tools-top">
+<div class="tools tools-bottom">
   <button matIconButton (click)="startDrawLine()">
     <mat-icon>border_color</mat-icon>
   </button>
 </div>
 
-<div class="tools tools-bottom">
-  <button matIconButton (click)="startDrawLine()">
-    <mat-icon>search</mat-icon>
-  </button>
+<div class="tools tools-top search-control">
+  <app-search (optionSelected)="onCitySelected($event)"/>
+</div>
+
+<div class="weather-card-container">
+  <app-map-weather-card/>
 </div>

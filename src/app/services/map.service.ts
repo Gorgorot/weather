@@ -56,4 +56,8 @@ export class MapService {
   setDrawingMode(mode: DrawingMode) {
     this.drawer.setDrawMode(mode);
   }
+
+  focusMapOnLocation(location: YMapLocationRequest) {
+    this.drawer.focusMapOnLocation(location);
+  }
 }

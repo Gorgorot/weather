@@ -1,0 +1,57 @@
+@use '@angular/material' as mat;
+
+$iconSize: 32px;
+$baseWidth: 400px;
+
+:host {
+  display: flex;
+  background: #fff;
+  position: relative;
+  transition: all .4s ease-in;
+  width: $baseWidth;
+
+  &.collapsed {
+    width: 56px;
+    height: 56px;
+
+    .search-field {
+      display: none;
+    }
+
+    .toggle-button {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .toggle-button {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    @include mat.icon-button-overrides((
+      icon-size: $iconSize,
+    ))
+  }
+
+  mat-icon {
+    width: $iconSize;
+    height: $iconSize;
+    font-size: $iconSize;
+  }
+
+  .search-field::ng-deep {
+    width: 100%;
+
+    .mdc-text-field {
+      padding: 0 40px 0 16px;
+    }
+  }
+
+  @include mat.form-field-overrides((
+    filled-container-color: #fff,
+    filled-input-text-color: #000,
+  ));
+}

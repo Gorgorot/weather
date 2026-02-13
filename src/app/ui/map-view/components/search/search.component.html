@@ -1,0 +1,18 @@
+@let autoCompleteSuggestions = suggestions();
+
+<mat-form-field class="search-field" subscriptSizing="dynamic">
+  <mat-label>Название населённого пункта</mat-label>
+  <input matInput
+         [formControl]="formControl"
+         [matAutocomplete]="auto"
+         autocomplete="off"/>
+
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onCitySelected($event)">
+    @for (option of autoCompleteSuggestions; track option) {
+      <mat-option [value]="option.value">{{ option.value }}</mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>
+<button matIconButton class="toggle-button" (click)="toggle()">
+  <mat-icon>search</mat-icon>
+</button>

@@ -4,6 +4,12 @@
   width: 100%;
   position: relative;
 
+  .weather-card-container {
+    position: absolute;
+    right: 50px;
+    top: 50px;
+  }
+
   .tools {
     position: absolute;
     background: white;
@@ -23,6 +29,11 @@
     &-bottom {
       left: 50px;
       bottom: 50px;
+    }
+
+    &.search-control {
+      padding: 0;
+      overflow: hidden;
     }
   }
 }

@@ -1,4 +1,4 @@
-import type { DomEventHandler, LngLat, YMap, YMapFeature } from 'ymaps3';
+import { DomEventHandler, LngLat, YMap, YMapFeature, YMapLocationRequest } from 'ymaps3';
 import { noop } from 'rxjs';
 import { LineDrawer } from './line-drawer';
 import { DrawingMode, MapDrawerBaseExecutor } from './map-drawer.models';
@@ -27,7 +27,7 @@ export class MapDrawer {
     const mapListener = new ymaps3.YMapListener({
       layer: 'any',
       onClick: this._drawExecutor!.clickAction.bind(this._drawExecutor),
-      onContextMenu: () => {
+      onContextMenu: (obj, event) => {
         const result = this._drawExecutor!.rightClickAction();
 
         if (result instanceof ymaps3.YMapFeature) {
@@ -69,5 +69,9 @@ export class MapDrawer {
     this._drawExecutor.createFigure();
 
     this._map.addChild(this._drawExecutor.currentFigure!);
+  }
+
+  focusMapOnLocation(location: YMapLocationRequest) {
+    this._map.setLocation(location);
   }
 }

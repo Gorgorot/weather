@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { App } from './app';
-import { MapViewComponent } from './pages/map-view/map-view.component';
+import { MapViewComponent } from './ui/map-view/map-view.component';
 
 export const routes: Routes = [
   {

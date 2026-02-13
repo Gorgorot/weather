@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MapViewComponent } from './pages/map-view/map-view.component';
+import { MapViewComponent } from './ui/map-view/map-view.component';
 import { AppModule, MAP_API_KEY } from './app.module';
 import { MapService } from './services/map.service';
 import { HeaderComponent } from './ui/header/header.component';
@@ -9,9 +9,9 @@ import { MainSectionComponent } from './ui/main-section/main-section/main-sectio
 
 @Component({
   selector: 'app-root',
-  imports: [AppModule, HeaderComponent, MainSectionComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
+  standalone: false,
 })
 export class App implements OnInit {
   mapService = inject(MapService);
