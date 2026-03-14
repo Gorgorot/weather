@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>{{ data.name }}</h2>
+
+<mat-dialog-content>
+  <div class="properties">
+    <div class="properties-item">
+      <div class="properties-label">
+        Долгота
+      </div>
+      <div class="properties-value">
+        {{ data.center[0] }}
+      </div>
+    </div>
+    <div class="properties-item">
+      <div class="properties-label">
+        Широта
+      </div>
+      <div class="properties-value">
+        {{ data.center[1] }}
+      </div>
+    </div>
+    <div class="properties-item">
+      <div class="properties-label">
+        Цвет
+      </div>
+      <div [style.background-color]="data.style!.fill" [style.height.px]="14" [style.width.px]="70"
+           class="properties-value"></div>
+    </div>
+  </div>
+  <br>
+  <mat-divider/>
+  <br>
+
+  <div class="parameters-title">Параметры погоды</div>
+  <div>
+    @for (section of sections; track section.name) {
+      <mat-expansion-panel (closed)="section.toggle()" (opened)="section.toggle()">
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ section.name }}</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-selection-list #shoes>
+          @for (row of section.list; track row.key) {
+            <mat-list-option [(selected)]="row.selected">{{ row.title }}</mat-list-option>
+          }
+        </mat-selection-list>
+      </mat-expansion-panel>
+    }
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button (click)="save()" mat-flat-button>Сохранить</button>
+  <button color="warn" mat-dialog-close mat-flat-button>Отмена</button>
+</mat-dialog-actions>

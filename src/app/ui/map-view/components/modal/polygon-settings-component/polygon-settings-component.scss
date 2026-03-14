@@ -1,0 +1,29 @@
+:host {
+  .properties {
+    display: flex;
+    flex-direction: column;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &:not(:last-child) {
+        margin-bottom: 6px;
+      }
+    }
+
+    &-label {
+      font-size: 16px
+    }
+
+    &-value {
+      font-size: 14px;
+    }
+  }
+
+  .parameters-title {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+}

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { WeatherInfo } from '../../../../weather/weather-info';
 
 @Component({
   selector: 'app-map-weather-card',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class MapWeatherCardComponent {
-
+  weatherInfo = input.required<WeatherInfo>();
 }

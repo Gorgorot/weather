@@ -3,14 +3,9 @@ import { fetchWeatherApi } from 'openmeteo';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { map, Observable } from 'rxjs';
 import { WeatherApiResponse } from '@openmeteo/sdk/weather-api-response';
+import { LngLat } from 'ymaps3';
 
-export interface IOpenMeteoRequestParams {
-  latitude: number;
-  longitude: number;
-  hourly: 'temperature_2m';
-  daily: 'temperature_2m_max';
-  current: 'temperature_2m,relative_humidity_2m';
-}
+type EnumKeyFields = { current?: string, daily?: string, hourly?: string };
 
 const URL = "https://api.open-meteo.com/v1/forecast"
 
@@ -18,8 +13,13 @@ const URL = "https://api.open-meteo.com/v1/forecast"
   providedIn: 'root',
 })
 export class WeatherApiService {
-  fetch(params: IOpenMeteoRequestParams): Observable<WeatherApiResponse> {
-    return fromPromise(fetchWeatherApi(URL, params)).pipe(
+  fetch(coordinates: LngLat, keys: EnumKeyFields): Observable<WeatherApiResponse> {
+    const params = {
+      longitude: coordinates[0],
+      latitude: coordinates[1],
+    };
+
+    return fromPromise(fetchWeatherApi(URL, { ...params, ...keys })).pipe(
       map(result => result[0])
     )
   }

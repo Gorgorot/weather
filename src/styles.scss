@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 
-@include mat.core();
+/*@include mat.core();
 
 // создаём тему (Material 3)
 $theme: mat.define-theme((
@@ -8,15 +8,44 @@ $theme: mat.define-theme((
     theme-type: dark, // или dark
     primary: mat.$green-palette,
     tertiary: mat.$orange-palette,
-  ),
-  density: (
-    scale: 0,
   )
 ));
 
 // подключаем ВСЕ стили компонентов
 :root {
   @include mat.all-component-themes($theme);
+}*/
+
+@include mat.core();
+
+$light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$violet-palette,
+  ),
+));
+
+/* Тёмная тема */
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$azure-palette,
+    tertiary: mat.$violet-palette,
+  ),
+));
+
+html {
+  color-scheme: light dark;
+
+  @include mat.all-component-themes($dark-theme);
+  @include mat.all-component-typographies($dark-theme);
+}
+
+[data-theme='light'] {
+  @include mat.all-component-themes($light-theme);
+  @include mat.all-component-typographies($light-theme);
+
 }
 
 * {

@@ -1,9 +1,22 @@
 import { DomEvent, DomEventHandlerObject } from '@yandex/ymaps3-types/imperative/YMapListener';
 import { MapDrawerBaseExecutor } from './map-drawer.models';
+import type { DrawingStyle, YMapFeatureProps } from 'ymaps3';
+import { MathHelper } from '../math-helper';
 
 export class LineDrawer extends MapDrawerBaseExecutor {
   override isRemovable = true;
   readonly maxPointsCount = 4;
+
+  readonly baseColor = MathHelper.randomHexColor();
+  override drawingStyle: DrawingStyle = {
+    stroke: [
+      {
+        color: this.baseColor,
+        width: 3
+      }
+    ],
+    fill: MathHelper.addAlphaToHex(this.baseColor, .6)
+  };
 
   constructor() {
     super();
@@ -34,7 +47,7 @@ export class LineDrawer extends MapDrawerBaseExecutor {
       },
       style: {
         simplificationRate: 0,
-        stroke: [{color: '#196DFF', dash: [8, 8], width: 4}]
+        stroke: [{ color: this.baseColor, dash: [8, 8], width: 4 }]
       }
     });
 
@@ -43,21 +56,13 @@ export class LineDrawer extends MapDrawerBaseExecutor {
     return line;
   }
 
-  override rightClickAction() {
-    return new ymaps3.YMapFeature({
+  override rightClickAction(): YMapFeatureProps {
+    return {
       geometry: {
         type: 'Polygon',
         coordinates: [this.coordinates],
       },
-      style: {
-        stroke: [
-          {
-            color: '#196DFF99',
-            width: 3
-          }
-        ],
-        fill: '#196DFF14'
-      }
-    });
+      style: this.drawingStyle,
+    };
   }
 }

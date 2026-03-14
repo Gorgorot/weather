@@ -1,17 +1,26 @@
 @let _mapSize = mapSize();
+@let _weatherInfo = weatherInfo();
+@let _selectedDrawingMode = selectedDrawingMode();
 
 <div class="map-container" #mapContainer [style.width.px]="_mapSize.width" [style.height.px]="_mapSize.height"></div>
 
-<div class="tools tools-bottom">
-  <button matIconButton (click)="startDrawLine()">
-    <mat-icon>border_color</mat-icon>
+<div class="tools tools-top">
+  <button (click)="startDrawLine()" [class.tools-button--active]="_selectedDrawingMode === DrawingMode.LINE"
+          class="tools-button"
+          matIconButton>
+    <mat-icon>draw</mat-icon>
+  </button>
+  <button (click)="openPolygonsList()" class="tools-button" matIconButton>
+    <mat-icon>format_list_bulleted</mat-icon>
   </button>
 </div>
 
-<div class="tools tools-top search-control">
+<div class="tools tools-bottom search-control">
   <app-search (optionSelected)="onCitySelected($event)"/>
 </div>
 
-<div class="weather-card-container">
-  <app-map-weather-card/>
-</div>
+@if (_weatherInfo) {
+  <div class="weather-card-container">
+    <app-map-weather-card [weatherInfo]="_weatherInfo"/>
+  </div>
+}

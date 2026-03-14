@@ -1,1 +1,27 @@
-<p>map-weather-card works!</p>
+@let _weatherInfo = weatherInfo();
+
+<div class="map-weather-card-title mat-headline-2">{{ _weatherInfo.title }}</div>
+
+<mat-list class="map-weather-card-list" role="list">
+  @for (data of _weatherInfo.records; track data.type) {
+    @if (!data.data.isSet) {
+      @for (param of data.includedParams; track param.key) {
+        <mat-list-item class="map-weather-card-list__item" role="listitem">
+          <div class="map-weather-card-list__item-content">
+            @if (param.icon) {
+              <mat-icon [matTooltip]="param.title" [svgIcon]="param.icon"
+                        class="map-weather-card-list__item-icon"></mat-icon>
+            } @else {
+              <span>{{ param.title }}</span>
+            }
+            <span>{{ param.value }}</span>
+          </div>
+        </mat-list-item>
+      }
+    } @else {
+      <mat-list-item class="map-weather-card-list__item" role="listitem">
+        <div matListItemTitle>{{ data.data.title }}</div>
+      </mat-list-item>
+    }
+  }
+</mat-list>

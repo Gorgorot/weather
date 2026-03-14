@@ -1,0 +1,13 @@
+@let value = name();
+
+<mat-dialog-content>
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Название зоны</mat-label>
+    <input (keyup.enter)="save()" [(ngModel)]="name" matInput>
+    @if (value) {
+      <button (click)="save()" matIconButton matSuffix>
+        <mat-icon>check</mat-icon>
+      </button>
+    }
+  </mat-form-field>
+</mat-dialog-content>

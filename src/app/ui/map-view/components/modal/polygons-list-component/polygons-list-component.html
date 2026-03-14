@@ -1,0 +1,20 @@
+@let list = polygons();
+
+<mat-list>
+  @for (item of list; track item.id) {
+    <mat-list-item>
+      {{ item.name }}
+      <div class="list-item-actions" matListItemMeta>
+        <button (click)="onListItemClick(item, PolygonsListAction.FOCUS)" matIconButton>
+          <mat-icon>search</mat-icon>
+        </button>
+        <button (click)="onListItemClick(item, PolygonsListAction.EDIT)" matIconButton>
+          <mat-icon>settings</mat-icon>
+        </button>
+        <button (click)="onListItemClick(item, PolygonsListAction.REMOVE)" matIconButton>
+          <mat-icon>remove</mat-icon>
+        </button>
+      </div>
+    </mat-list-item>
+  }
+</mat-list>
