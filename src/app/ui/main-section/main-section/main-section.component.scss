@@ -3,11 +3,6 @@
 :host {
   flex: 1 1 auto;
 
-  @include mat.sidenav-overrides((
-    content-background-color: rgba(0, 0, 0, 0.75),
-    container-background-color: rgba(0, 0, 0, 0.15),
-  ));
-
   .example-container {
     height: 100%;
   }
