@@ -1,0 +1,20 @@
+@let _weatherInfo = weatherInfo();
+@let _currentTemperature = currentTemperature();
+
+<div class="weather-card">
+  <div class="weather-card__name">{{ _weatherInfo.title }}</div>
+
+  <div class="weather-card__content">
+    <app-icon-accent-wrapper>
+      <mat-icon [svgIcon]="_currentTemperature?.icon ?? ''"/>
+    </app-icon-accent-wrapper>
+    {{ _currentTemperature?.value }}
+  </div>
+
+  <div class="weather-card__actions">
+    <button (click)="additionalInfo.emit(_weatherInfo.objectId)" class="button-primary button-sm" mat-flat-button>
+      Подробнее
+    </button>
+    <button (click)="delete.emit(_weatherInfo.objectId)" class="button-warn button-sm" mat-flat-button>Удалить</button>
+  </div>
+</div>

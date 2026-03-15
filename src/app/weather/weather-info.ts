@@ -1,7 +1,7 @@
-import {WeatherApiResponse} from '@openmeteo/sdk/weather-api-response';
-import {OpenMeteoCurrent} from './openmeteo-current';
-import {OpenmeteoDaily} from './openmeteo-dailty';
-import {OpenmeteoHourly} from './openmeteo-hourly';
+import { WeatherApiResponse } from '@openmeteo/sdk/weather-api-response';
+import { OpenMeteoCurrent } from './openmeteo-current';
+import { OpenmeteoDaily } from './openmeteo-dailty';
+import { OpenmeteoHourly } from './openmeteo-hourly';
 
 export enum OpenMeteoDataTypes {
   CURRENT = 'CURRENT',
@@ -63,5 +63,15 @@ export class WeatherInfo {
       case OpenMeteoDataTypes.HOURLY:
         return (keys: string[]) => new OpenmeteoHourly(openmeteoData.hourly()!, openmeteoData.utcOffsetSeconds(), keys);
     }
+  }
+
+  get(recordType: OpenMeteoDataTypes, key: string) {
+    for (const record of this.records) {
+      if (record.type === recordType) {
+        return record.includedParams.find(param => param.key === key);
+      }
+    }
+
+    throw new Error(`${key} not found`);
   }
 }

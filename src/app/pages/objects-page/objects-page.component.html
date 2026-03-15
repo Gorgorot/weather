@@ -1,5 +1,16 @@
-@let _objects = objects();
+@let _objectWeatherInfo = objectWeatherInfo();
 
-@for (item of _objects; track item.id) {
-  {{ item.name }}
-}
+<h1 class="page-title">Объекты</h1>
+
+<section class="content">
+  <div class="objects-list">
+    @for (item of _objectWeatherInfo; track item.objectId) {
+      <app-weather-card (additionalInfo)="onCardAdditionalInfo($event)" [weatherInfo]="item"/>
+    }
+  </div>
+</section>
+
+<div class="quick-statistic-wrapper">
+  <router-outlet/>
+</div>
+

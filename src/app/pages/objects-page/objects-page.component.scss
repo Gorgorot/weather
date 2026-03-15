@@ -1,0 +1,48 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 24px;
+  height: 100%;
+  position: relative;
+
+  &.dark-theme {
+    background: #292929;
+  }
+
+  &.light-theme {
+    background: #faf9fd;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+  }
+
+  .page-title {
+    margin-bottom: 40px;
+  }
+
+  .objects-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    align-items: start;
+    flex-grow: 1;
+    height: max-content;
+
+    &__item {
+      padding: 24px;
+      background: #000;
+    }
+  }
+
+  .quick-statistic-wrapper {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #18191ae6;
+    z-index: 2;
+  }
+}

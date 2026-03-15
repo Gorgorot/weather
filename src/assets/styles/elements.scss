@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 .mat-mdc-unelevated-button:not(:disabled) {
   &.button-primary {
     background-color: var(--button-primary-bg);
@@ -7,5 +9,15 @@
   &.button-warn {
     background-color: var(--button-warn-bg);
     color: #fff;
+  }
+}
+
+.mat-mdc-unelevated-button {
+  &.button-sm {
+    @include mat.button-overrides((
+      filled-container-height: 32px,
+      filled-label-text-size: 12px,
+      filled-horizontal-padding: 16px,
+    ))
   }
 }
