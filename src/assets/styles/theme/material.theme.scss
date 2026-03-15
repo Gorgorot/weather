@@ -1,0 +1,45 @@
+@use 'dark' as *;
+@use 'light' as *;
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+html {
+  @include mat.all-component-typographies($light-theme);
+}
+
+html[data-theme='light'] {
+  @include light-theme-element();
+  @include mat.all-component-themes($light-theme);
+
+  @include mat.sidenav-overrides((
+    content-background-color: rgba(0, 0, 0, 0.75),
+    container-background-color: #eaeaea,
+  ));
+
+  @include mat.icon-button-overrides((
+    icon-color: #4c4cf5,
+  ));
+
+  @include mat.icon-overrides((
+    color: #4c4cf5,
+  ));
+}
+
+html[data-theme='dark'] {
+  @include dark-theme-element();
+  @include mat.all-component-themes($dark-theme);
+
+  @include mat.sidenav-overrides((
+    content-background-color: rgba(0, 0, 0, 0.75),
+    container-background-color: rgba(0, 0, 0, 0.15),
+  ));
+
+  @include mat.icon-button-overrides((
+    icon-color: #8888ef,
+  ));
+
+  @include mat.icon-overrides((
+    color: #8888ef,
+  ));
+}

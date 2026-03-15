@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {ThemeService} from '../../services/theme.service';
+import {Themes, ThemeService} from '../../services/theme.service';
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 
@@ -14,6 +14,10 @@ import {MatIconButton} from '@angular/material/button';
 })
 export class ThemeToggleComponent {
   private readonly themeService = inject(ThemeService);
+
+  readonly THEMES = Themes;
+
+  currentTheme = this.themeService.getCurrentTheme();
 
   onButtonClick() {
     this.themeService.toggle();

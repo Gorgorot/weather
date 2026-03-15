@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 
 export enum Themes {
   DARK = 'dark',
@@ -11,25 +11,27 @@ const THEME_KEY = 'THEME_KEY';
   providedIn: 'root',
 })
 export class ThemeService {
+  private currentTheme = signal<Themes>((localStorage.getItem(THEME_KEY) as Themes) ?? Themes.DARK);
+
   init(): void {
-    const currentTheme = this.getCurrentTheme();
+    const currentTheme = this.currentTheme();
 
     this.setTheme(currentTheme === Themes.LIGHT ? Themes.LIGHT : Themes.DARK);
   }
 
   toggle() {
-    const theme = this.getCurrentTheme();
+    const theme = this.currentTheme();
 
     this.setTheme(theme === Themes.DARK ? Themes.LIGHT : Themes.DARK);
   }
 
-  private setTheme(theme: Themes) {
-    document.documentElement.setAttribute('data-theme', theme);
-
-    localStorage.setItem(THEME_KEY, theme);
+  getCurrentTheme() {
+    return this.currentTheme;
   }
 
-  private getCurrentTheme() {
-    return localStorage.getItem(THEME_KEY);
+  private setTheme(theme: Themes) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(THEME_KEY, theme);
+    this.currentTheme.set(theme);
   }
 }

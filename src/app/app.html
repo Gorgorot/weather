@@ -1,4 +1,5 @@
 <app-header [title]="appName" (toggleSideNav)="contentRef.toggleSidenav()"></app-header>
 <app-main-section #contentRef class="main-section">
-  <router-outlet/>
+  <app-navigation ngProjectAs="nav-content"/>
+  <router-outlet ngProjectAs="main-content"/>
 </app-main-section>

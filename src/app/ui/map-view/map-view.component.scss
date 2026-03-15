@@ -1,6 +1,6 @@
 @use "sass:map";
 @use '@angular/material' as mat;
-@import './map-view.theme';
+@use './map-view.theme' as *;
 
 :host {
   display: block;
@@ -8,10 +8,19 @@
   width: 100%;
   position: relative;
 
+  &.dark {
+    @include map-dark-theme();
+  }
+
+  &.light {
+    @include map-light-theme();
+  }
+
   .weather-card-container {
     position: absolute;
-    right: 50px;
-    top: 50px;
+    right: 25px;
+    top: 25px;
+    max-width: 300px;
   }
 
   .tools {
@@ -22,10 +31,10 @@
 
     &-button {
       box-shadow: 0px 0px 14px 4px rgba(34, 60, 80, 0.32);
-      background: map.get($themeLight, 'button-icon-background');
-      border: map.get($themeLight, 'button-icon-border');
+      background: var(--map-button-icon-background);
+      border: var(--map-button-icon-border);
       --mat-icon-button-state-layer-size: 40px;
-      --mat-icon-color: #9f9fff;
+      --mat-icon-color: var(--map-icon-color);
       transition: .3s all ease-in-out;
       padding: 7px;
 
@@ -51,6 +60,7 @@
     &.search-control {
       padding: 0;
       overflow: hidden;
+      box-shadow: 0px 0px 14px 4px rgba(34, 60, 80, 0.32);
     }
   }
 }

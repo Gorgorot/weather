@@ -1,10 +1,20 @@
 @use '@angular/material' as mat;
 
-$light-theme: mat.define-light-theme((
+$light-theme: mat.define-theme((
   color: (
-    primary: mat.define-palette(mat.$indigo-palette),
-    accent: mat.define-palette(mat.$pink-palette),
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
   ),
-  typography: mat.define-typography-config(),
-  density: 0,
+  density: (
+    scale: 0
+  )
 ));
+
+@mixin light-theme-element {
+  --button-primary-bg: #128ef9;
+  --button-warn-bg: #ff3c3c;
+  --text-color: #1a1b1f;
+  --accent-text-color: #6052ff;
+  --accent-border-color: #6052ff;
+}

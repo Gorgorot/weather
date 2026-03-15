@@ -1,10 +1,20 @@
 @use '@angular/material' as mat;
 
-$dark-theme: mat.define-dark-theme((
+$dark-theme: mat.define-theme((
   color: (
-    primary: mat.define-palette(mat.$pink-palette),
-    accent: mat.define-palette(mat.$blue-grey-palette),
+    theme-type: dark,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
   ),
-  typography: mat.define-typography-config(),
-  density: 0,
+  density: (
+    scale: 0
+  )
 ));
+
+@mixin dark-theme-element {
+  --button-primary-bg: #4141f5;
+  --button-warn-bg: #ff3c3c;
+  --text-color: #e3e2e6;
+  --accent-text-color: #6052ff;
+  --accent-border-color: #6052ff;
+}

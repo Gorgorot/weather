@@ -1,13 +1,11 @@
-import { Component, OnInit, viewChild } from '@angular/core';
-import { MatDrawer, MatDrawerContainer } from '@angular/material/sidenav';
-import { MatButton } from '@angular/material/button';
+import {Component, OnInit, viewChild} from '@angular/core';
+import {MatDrawer, MatDrawerContainer} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-main-section',
   imports: [
     MatDrawerContainer,
-    MatDrawer,
-    MatButton
+    MatDrawer
   ],
   templateUrl: './main-section.component.html',
   styleUrl: './main-section.component.scss',

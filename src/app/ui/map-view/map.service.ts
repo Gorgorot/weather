@@ -1,32 +1,32 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { MAP_API_KEY } from '../../app.module';
-import { filter, map, of, switchMap, take, tap } from 'rxjs';
-import { LngLat, YMapLocationRequest } from 'ymaps3';
-import { MapDrawer } from '../../drawer/map-drawer';
-import { DrawingMode } from '../../drawer/map-drawer.models';
-import { IPolygon, PolygonsStoreService } from '../../services/polygons-store.service';
-import { MapDialogsService } from './map-dialogs.service';
-import { AddPolygonModalComponent } from './components/modal/add-polygon-modal/add-polygon-modal.component';
-import { PolygonsListComponent } from './components/modal/polygons-list-component/polygons-list-component';
-import { OpenMeteoDataTypes, WeatherInfo } from '../../weather/weather-info';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { WeatherApiService } from '../../services/weather-api.service';
-import { OpenmeteoDataTypeToQueryName } from '../../weather/openmeteo-parameters';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import {inject, Injectable, Injector, signal} from '@angular/core';
+import {MAP_API_KEY} from '../../app.module';
+import {filter, map, of, switchMap, take, tap} from 'rxjs';
+import {LngLat, YMapLocationRequest} from 'ymaps3';
+import {MapDrawer} from '../../drawer/map-drawer';
+import {DrawingMode} from '../../drawer/map-drawer.models';
+import {IPolygon, PolygonsStoreService} from '../../services/polygons-store.service';
+import {MapDialogsService} from './map-dialogs.service';
+import {AddPolygonModalComponent} from './components/modal/add-polygon-modal/add-polygon-modal.component';
+import {PolygonsListComponent} from './components/modal/polygons-list-component/polygons-list-component';
+import {OpenMeteoDataTypes, WeatherInfo} from '../../weather/weather-info';
+import {MatBottomSheet} from '@angular/material/bottom-sheet';
+import {WeatherApiService} from '../../services/weather-api.service';
+import {OpenmeteoDataTypeToQueryName} from '../../weather/openmeteo-parameters';
+import {toObservable, toSignal} from '@angular/core/rxjs-interop';
 
 export enum MapApiLoadState {
-  RESOLVED,
-  LOAD,
-  REJECTED,
+  RESOLVED = 'RESOLVED',
+  LOAD = 'LOAD',
+  REJECTED = 'REJECTED',
 }
 
 @Injectable()
 export class MapService {
-  apiKey = inject(MAP_API_KEY);
-  polygonsStoreService = inject(PolygonsStoreService);
-  mapDialogsService = inject(MapDialogsService);
-  bottomSheet = inject(MatBottomSheet);
-  weatherApiService = inject(WeatherApiService);
+  readonly apiKey = inject(MAP_API_KEY);
+  readonly polygonsStoreService = inject(PolygonsStoreService);
+  readonly mapDialogsService = inject(MapDialogsService);
+  readonly bottomSheet = inject(MatBottomSheet);
+  readonly weatherApiService = inject(WeatherApiService);
 
   apiState = signal<MapApiLoadState>(MapApiLoadState.LOAD);
   selectedDrawingMode = signal<DrawingMode>(DrawingMode.NONE);
@@ -39,7 +39,11 @@ export class MapService {
   drawer: MapDrawer;
   polygons = this.polygonsStoreService.allPolygons;
 
-  constructor() {
+  constructor(private injector: Injector) {
+  }
+
+  get apiLoaded() {
+    return this.apiState() === MapApiLoadState.RESOLVED;
   }
 
   loadApi() {
@@ -90,7 +94,7 @@ export class MapService {
   }
 
   openPolygonsList() {
-    this.bottomSheet.open(PolygonsListComponent)
+    this.bottomSheet.open(PolygonsListComponent, {injector: this.injector})
       .afterDismissed()
       .pipe(
         take(1),
@@ -177,19 +181,16 @@ export class MapService {
         map((data) => {
           return new WeatherInfo(
             polygon.name,
+            polygon.style?.fill ?? '',
+            polygon.id,
             data,
             [
               {
                 type: OpenMeteoDataTypes.CURRENT,
-                keys: polygon.requestedParameters!.find(v => v.type === OpenMeteoDataTypes.CURRENT)!.selected,
-              },
-              {
-                type: OpenMeteoDataTypes.DAILY,
-                keys: polygon.requestedParameters!.find(v => v.type === OpenMeteoDataTypes.DAILY)!.selected,
-              },
-              {
-                type: OpenMeteoDataTypes.HOURLY,
-                keys: polygon.requestedParameters!.find(v => v.type === OpenMeteoDataTypes.HOURLY)!.selected,
+                keys: [
+                  'temperature_2m',
+                  'relative_humidity_2m',
+                ],
               }
             ],
           )

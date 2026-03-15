@@ -12,7 +12,10 @@
   }
 
   .example-sidenav {
-    border-radius: 0;
+    @include mat.sidenav-overrides((
+      container-width: 250px,
+    ));
 
+    border-radius: 0;
   }
 }

@@ -1,6 +1,6 @@
 @let _weatherInfo = weatherInfo();
 
-<div class="map-weather-card-title mat-headline-2">{{ _weatherInfo.title }}</div>
+<div [style.color]="_weatherInfo.color" class="map-weather-card-title mat-headline-2">{{ _weatherInfo.title }}</div>
 
 <mat-list class="map-weather-card-list" role="list">
   @for (data of _weatherInfo.records; track data.type) {
@@ -9,12 +9,14 @@
         <mat-list-item class="map-weather-card-list__item" role="listitem">
           <div class="map-weather-card-list__item-content">
             @if (param.icon) {
-              <mat-icon [matTooltip]="param.title" [svgIcon]="param.icon"
-                        class="map-weather-card-list__item-icon"></mat-icon>
+              <div class="map-weather-card-list__item-icon-wrapper">
+                <mat-icon [matTooltip]="param.title" [svgIcon]="param.icon"
+                          class="map-weather-card-list__item-icon"></mat-icon>
+              </div>
             } @else {
               <span>{{ param.title }}</span>
             }
-            <span>{{ param.value }}</span>
+            <span class="map-weather-card-list__item-value">{{ param.value }}</span>
           </div>
         </mat-list-item>
       }
@@ -25,3 +27,5 @@
     }
   }
 </mat-list>
+<br/>
+<a class="link" routerLink="/objects/{{ _weatherInfo.objectId }}">Подробнее</a>

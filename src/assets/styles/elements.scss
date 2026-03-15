@@ -1,0 +1,11 @@
+.mat-mdc-unelevated-button:not(:disabled) {
+  &.button-primary {
+    background-color: var(--button-primary-bg);
+    color: #fff;
+  }
+
+  &.button-warn {
+    background-color: var(--button-warn-bg);
+    color: #fff;
+  }
+}

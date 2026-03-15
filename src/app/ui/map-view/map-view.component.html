@@ -7,10 +7,12 @@
 <div class="tools tools-top">
   <button (click)="startDrawLine()" [class.tools-button--active]="_selectedDrawingMode === DrawingMode.LINE"
           class="tools-button"
+          matTooltip="Нарисовать объект"
           matIconButton>
     <mat-icon>draw</mat-icon>
   </button>
-  <button (click)="openPolygonsList()" class="tools-button" matIconButton>
+  <button (click)="openPolygonsList()" class="tools-button" matIconButton
+          matTooltip="Управление объектами">
     <mat-icon>format_list_bulleted</mat-icon>
   </button>
 </div>

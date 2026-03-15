@@ -1,7 +1,7 @@
-import { WeatherApiResponse } from '@openmeteo/sdk/weather-api-response';
-import { OpenMeteoCurrent } from './openmeteo-current';
-import { OpenmeteoDaily } from './openmeteo-dailty';
-import { OpenmeteoHourly } from './openmeteo-hourly';
+import {WeatherApiResponse} from '@openmeteo/sdk/weather-api-response';
+import {OpenMeteoCurrent} from './openmeteo-current';
+import {OpenmeteoDaily} from './openmeteo-dailty';
+import {OpenmeteoHourly} from './openmeteo-hourly';
 
 export enum OpenMeteoDataTypes {
   CURRENT = 'CURRENT',
@@ -23,9 +23,13 @@ export interface IOpenMeteoSelectedData {
 export class WeatherInfo {
   records = new Set<IOpenMeteoRowInfo>();
   title: string = '';
+  color: string = '';
+  objectId: string = '';
 
-  constructor(title: string, openmeteoData: WeatherApiResponse, allowedTypes: IOpenMeteoSelectedData[]) {
+  constructor(title: string, color: string, objectId: string, openmeteoData: WeatherApiResponse, allowedTypes: IOpenMeteoSelectedData[]) {
     this.title = title;
+    this.color = color;
+    this.objectId = objectId;
 
     this.init(openmeteoData, allowedTypes);
   }

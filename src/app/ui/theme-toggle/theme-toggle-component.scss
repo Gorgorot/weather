@@ -1,0 +1,11 @@
+:host {
+  .toggle-button {
+    mat-icon {
+      color: #fdbe5c;
+    }
+
+    &--dark mat-icon {
+      color: gray;
+    }
+  }
+}

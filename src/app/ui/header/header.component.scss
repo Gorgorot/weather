@@ -1,5 +1,7 @@
 :host {
   display: block;
+  box-shadow: -3px 1px 26px 0px rgba(0, 0, 0, 0.8);
+  z-index: 2;
 
   .example-spacer {
     flex: 1 1 auto;

@@ -1,6 +1,6 @@
-import { Routes } from '@angular/router';
-import { App } from './app';
-import { MapViewComponent } from './ui/map-view/map-view.component';
+import {Routes} from '@angular/router';
+import {MapPageComponent} from './pages/map-page-component/map-page.component';
+import {ObjectsPageComponent} from './pages/objects-page/objects-page.component';
 
 export const routes: Routes = [
   {
@@ -10,6 +10,10 @@ export const routes: Routes = [
   },
   {
     path: 'map',
-    component: MapViewComponent,
+    component: MapPageComponent,
+  },
+  {
+    path: 'objects',
+    component: ObjectsPageComponent,
   }
 ];

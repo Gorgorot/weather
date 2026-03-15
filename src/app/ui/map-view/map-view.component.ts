@@ -1,17 +1,24 @@
-import { Component, effect, ElementRef, inject, OnInit, signal, viewChild } from '@angular/core';
-import { MapApiLoadState, MapService } from './map.service';
-import { DrawingMode } from '../../drawer/map-drawer.models';
-import { FormControl } from '@angular/forms';
-import { IDaDataSuggestion } from '../../services/da-data.service';
+import {Component, effect, ElementRef, inject, OnInit, signal, viewChild} from '@angular/core';
+import {MapApiLoadState, MapService} from './map.service';
+import {DrawingMode} from '../../drawer/map-drawer.models';
+import {FormControl} from '@angular/forms';
+import {IDaDataSuggestion} from '../../services/da-data.service';
+import {Themes, ThemeService} from '../../services/theme.service';
 
 @Component({
   selector: 'app-map-view',
   templateUrl: './map-view.component.html',
   styleUrls: ['./map-view.component.scss'],
   standalone: false,
+  host: {
+    '[class.dark]': 'themeService.getCurrentTheme()() === Themes.DARK',
+    '[class.light]': 'themeService.getCurrentTheme()() === Themes.LIGHT'
+  }
 })
 export class MapViewComponent implements OnInit {
-  mapService = inject(MapService);
+  readonly themeService = inject(ThemeService);
+  readonly Themes = Themes;
+  private readonly mapService = inject(MapService);
 
   readonly DrawingMode = DrawingMode;
 
@@ -47,11 +54,6 @@ export class MapViewComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.mapService.loadApi();
-    this.resizeObserver.observe(this.element.nativeElement);
-  }
-
   openPolygonsList() {
     this.mapService.openPolygonsList();
   }
@@ -64,5 +66,12 @@ export class MapViewComponent implements OnInit {
     const [long, lat] = [+data.data.geo_lon, +data.data.geo_lat];
 
     this.mapService.focusMapOnLocation([long, lat]);
+  }
+
+  ngOnInit() {
+    if (!this.mapService.apiLoaded) {
+      this.mapService.loadApi();
+    }
+    this.resizeObserver.observe(this.element.nativeElement);
   }
 }

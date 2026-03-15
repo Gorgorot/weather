@@ -1,7 +1,15 @@
 @use "sass:map";
 
-$themeLight: (
-  "button-icon-background": #4b4b4b,
-  "button-icon-border": 1px solid #4b4b4b,
-  "accent-color": #9f9fff
-);
+@mixin map-light-theme {
+  --map-button-icon-background: #cfcfcf;
+  --map-button-icon-border: 1px solid #c8c8c8;
+  --map-icon-color: #4a4aff;
+  --map-weather-card-background: #fff;
+}
+
+@mixin map-dark-theme {
+  --map-button-icon-background: #4b4b4b;
+  --map-button-icon-border: 1px solid #4b4b4b;
+  --map-icon-color: #8692ff;
+  --map-weather-card-background: #262626;
+}

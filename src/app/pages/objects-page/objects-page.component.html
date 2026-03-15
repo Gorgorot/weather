@@ -1,0 +1,5 @@
+@let _objects = objects();
+
+@for (item of _objects; track item.id) {
+  {{ item.name }}
+}
