@@ -1,1 +1,15 @@
-<p>quick-object-info works!</p>
+@let _hourlySets = hourlySets();
+
+<div class="info-title">
+  <h2>Быстрая информация</h2>
+  <button (click)="close.emit()" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+@for (set of _hourlySets; track set.setData.key) {
+  <div [options]="set.chartData" echarts></div>
+}
+
+
+

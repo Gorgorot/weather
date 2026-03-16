@@ -36,6 +36,13 @@ export enum OpenmeteoCurrentParameters {
 
 export const OpenmeteoCurrentParametersList = Object.keys(OpenmeteoHourlyParameters);
 
+export enum OpenmeteoDailyParameters {
+  temperature_2m_max = 'temperature_2m_max',
+  temperature_2m_min = 'temperature_2m_min',
+  wind_speed_10m_max = 'wind_speed_10m_max',
+}
+
+export const OpenmeteoDailyParametersList = Object.keys(OpenmeteoDailyParameters);
 
 export const OpenmeteoParametersIconsMap = <Record<OpenmeteoCurrentParameters | OpenmeteoHourlyParameters | string, string>>{
   [OpenmeteoCurrentParameters.temperature_2m]: 'ThermometerCelsiusFill',
@@ -56,13 +63,17 @@ export const OpenmeteoDataTypeToSet = <Record<OpenMeteoDataTypes, boolean>>{
 };
 
 export const OpenmeteoDataTypeToParametersList = <Record<OpenMeteoDataTypes, string[]>>{
-  [OpenMeteoDataTypes.HOURLY]: Object.keys(OpenmeteoHourlyParameters),
-  [OpenMeteoDataTypes.CURRENT]: Object.keys(OpenmeteoCurrentParameters),
-  [OpenMeteoDataTypes.DAILY]: [],
+  [OpenMeteoDataTypes.HOURLY]: OpenmeteoHourlyParametersList,
+  [OpenMeteoDataTypes.CURRENT]: OpenmeteoCurrentParametersList,
+  [OpenMeteoDataTypes.DAILY]: OpenmeteoDailyParametersList,
 }
 
 export const OPENMETEO_PARAMS_UNITS_MAP: Record<OpenmeteoHourlyParameters | OpenmeteoCurrentParameters | string, string> = {
   [OpenmeteoCurrentParameters.temperature_2m]: '°C',
   [OpenmeteoCurrentParameters.relative_humidity_2m]: '%',
-  [OpenmeteoCurrentParameters.pressure_msl]: 'мм.рт.ст.'
+  [OpenmeteoCurrentParameters.pressure_msl]: 'мм.рт.ст.',
+
+  [OpenmeteoDailyParameters.temperature_2m_min]: '°C',
+  [OpenmeteoDailyParameters.temperature_2m_max]: '°C',
+  [OpenmeteoDailyParameters.wind_speed_10m_max]: 'м/с',
 };

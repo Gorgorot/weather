@@ -22,8 +22,8 @@ import { IconAccentWrapper } from '../icon-accent/icon-accent-wrapper.component'
 })
 export class WeatherCardComponent {
   weatherInfo = input.required<WeatherInfo>();
-  additionalInfo = output<string>();
-  delete = output<string>();
+  additionalInfo = output<number>();
+  delete = output<number>();
 
   currentTemperature = computed(() => {
     const info = this.weatherInfo();

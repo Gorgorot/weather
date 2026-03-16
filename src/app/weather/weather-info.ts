@@ -7,12 +7,20 @@ export enum OpenMeteoDataTypes {
   CURRENT = 'CURRENT',
   HOURLY = 'HOURLY',
   DAILY = 'DAILY',
-};
+}
+
+export interface IOpenMeteoRowInfoParam {
+  key: string;
+  value: string;
+  title: string;
+  icon: string;
+  unit: string;
+}
 
 export interface IOpenMeteoRowInfo<T = string> {
   type: OpenMeteoDataTypes;
   data: OpenMeteoCurrent | OpenmeteoDaily | OpenmeteoHourly;
-  includedParams: Array<{ key: string, value: string, title: string, icon: string }>;
+  includedParams: IOpenMeteoRowInfoParam[];
 }
 
 export interface IOpenMeteoSelectedData {
@@ -24,9 +32,9 @@ export class WeatherInfo {
   records = new Set<IOpenMeteoRowInfo>();
   title: string = '';
   color: string = '';
-  objectId: string = '';
+  objectId: number = 0;
 
-  constructor(title: string, color: string, objectId: string, openmeteoData: WeatherApiResponse, allowedTypes: IOpenMeteoSelectedData[]) {
+  constructor(title: string, color: string, objectId: number, openmeteoData: WeatherApiResponse, allowedTypes: IOpenMeteoSelectedData[]) {
     this.title = title;
     this.color = color;
     this.objectId = objectId;
@@ -48,6 +56,7 @@ export class WeatherInfo {
             value: `${adapter.getValue(key)} ${adapter.getUnit(key)}`,
             title: adapter.getName(key),
             icon: adapter.getIcon(key),
+            unit: adapter.getUnit(key),
           }
         }),
       });

@@ -17,7 +17,7 @@ import type { Geometry } from '@yandex/ymaps3-types/imperative/YMapFeature/types
 import { tapResponse } from '@ngrx/operators';
 import { OpenmeteoDateTypesNames } from '../weather/openmeteo-param-to-name';
 import { OpenMeteoDataTypes } from '../weather/weather-info';
-import { OpenmeteoHourlyParameters } from '../weather/openmeteo-parameters';
+import { OpenmeteoCurrentParameters, OpenmeteoHourlyParameters } from '../weather/openmeteo-parameters';
 
 export interface IPolygonParametersSetting<T = string> {
   isSet: boolean;
@@ -33,24 +33,23 @@ export interface IPolygon {
   style: DrawingStyle | undefined;
   center: LngLat;
   domCenter: LngLat;
-  id: string;
+  id: number;
   requestedParameters?: IPolygonParametersSetting[];
 }
 
 export const PolygonDefaultParameters = <Array<IPolygonParametersSetting<OpenmeteoHourlyParameters>>>[
   {
-    selected: [],
+    selected: [
+      OpenmeteoCurrentParameters.temperature_2m,
+      OpenmeteoCurrentParameters.relative_humidity_2m,
+    ],
     name: OpenmeteoDateTypesNames[OpenMeteoDataTypes.CURRENT],
     isSet: false,
     queryName: 'current',
     type: OpenMeteoDataTypes.CURRENT,
   },
   {
-    selected: [
-      OpenmeteoHourlyParameters.wind_speed_10m,
-      OpenmeteoHourlyParameters.dew_point_2m,
-      OpenmeteoHourlyParameters.temperature_2m,
-    ],
+    selected: [],
     name: OpenmeteoDateTypesNames[OpenMeteoDataTypes.HOURLY],
     isSet: true,
     queryName: 'hourly',
@@ -72,7 +71,7 @@ const polygonEntity = entityConfig({
 });
 
 interface IStoreState {
-  selectedPolygonId: string | undefined;
+  selectedPolygonId: number | undefined;
 }
 
 const store = signalStore(
@@ -89,7 +88,7 @@ const store = signalStore(
     allPolygons: () => store.polygonsEntities(),
   })),
   withMethods((store) => ({
-    setSelectedPolygonId: (id: string) => {
+    setSelectedPolygonId: (id: number) => {
       patchState(store, { selectedPolygonId: id });
     },
   }))
@@ -100,7 +99,7 @@ const store = signalStore(
 })
 export class PolygonsStoreService extends store {
   ngxIndexedDBService = inject(NgxIndexedDBService);
-  remove = rxMethod<string>(
+  remove = rxMethod<number>(
     pipe(
       switchMap((id) => {
         return this.ngxIndexedDBService.deleteByKey(

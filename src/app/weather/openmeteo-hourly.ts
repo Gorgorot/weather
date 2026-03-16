@@ -18,4 +18,8 @@ export class OpenmeteoHourly extends BaseOpenmeteoAdapter {
       this[key] = hourly.variables(index)!.valuesArray()
     });
   }
+
+  override getValue(key: string): any {
+    return super.getValue(key);
+  }
 }

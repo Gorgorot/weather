@@ -1,4 +1,8 @@
-import { OpenmeteoCurrentParameters, OpenmeteoHourlyParameters } from './openmeteo-parameters';
+import {
+  OpenmeteoCurrentParameters,
+  OpenmeteoDailyParameters,
+  OpenmeteoHourlyParameters
+} from './openmeteo-parameters';
 import { OpenMeteoDataTypes } from './weather-info';
 
 export const OpenmeteoDateTypesNames = <Record<OpenMeteoDataTypes, string>>{
@@ -7,7 +11,7 @@ export const OpenmeteoDateTypesNames = <Record<OpenMeteoDataTypes, string>>{
   [OpenMeteoDataTypes.CURRENT]: 'Сейчас',
 };
 
-export const OpenmeteoParamToNameMap = <Record<OpenmeteoHourlyParameters | OpenmeteoCurrentParameters | string, string>>{
+export const OpenmeteoParamToNameMap = <Record<OpenmeteoHourlyParameters | OpenmeteoCurrentParameters | OpenmeteoDailyParameters | string, string>>{
   [OpenmeteoHourlyParameters.rain]: 'Дождь',
   [OpenmeteoHourlyParameters.apparent_temperature]: 'Ощущается как',
   [OpenmeteoHourlyParameters.relative_humidity_2m]: 'Относительная влажность (2м)',
@@ -22,5 +26,9 @@ export const OpenmeteoParamToNameMap = <Record<OpenmeteoHourlyParameters | Openm
   [OpenmeteoCurrentParameters.precipitation]: 'Осадки',
   [OpenmeteoCurrentParameters.pressure_msl]: 'Давление',
   [OpenmeteoCurrentParameters.is_day]: 'День',
-  [OpenmeteoCurrentParameters.wind_direction_10m]: 'Направление ветра (10м)'
+  [OpenmeteoCurrentParameters.wind_direction_10m]: 'Направление ветра (10м)',
+
+  [OpenmeteoDailyParameters.temperature_2m_min]: 'Минимальная температура',
+  [OpenmeteoDailyParameters.temperature_2m_max]: 'Максимальная температура',
+  [OpenmeteoDailyParameters.wind_speed_10m_max]: 'Скорость ветра',
 };

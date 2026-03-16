@@ -1,48 +1,62 @@
-import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
 import { ObjectsService } from '../../services/objects.service';
 import { ThemeDirective } from '../../directives/theme.directive';
 import { WeatherCardComponent } from '../../ui/weather-card/weather-card.component';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
+import { QuickObjectInfoComponent } from '../../ui/quick-object-info/quick-object-info.component';
 
 @Component({
   selector: 'app-objects-page',
   imports: [
     WeatherCardComponent,
-    RouterOutlet
+    QuickObjectInfoComponent
   ],
   templateUrl: './objects-page.component.html',
   styleUrl: './objects-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   hostDirectives: [
     ThemeDirective,
+  ],
+  providers: [
+    ObjectsService,
   ]
 })
 export class ObjectsPageComponent {
   private readonly objectsService = inject(ObjectsService);
+  private router = inject(Router);
   objectWeatherInfo = this.objectsService.objectWeatherInfo;
-  private activatedRoute = inject(ActivatedRoute);
+  currentWeatherInfo = computed(() => {
+    const currentObjectId = this.currentObjectId();
+    const objectWeatherInfo = this.objectWeatherInfo();
 
-  objects = this.objectsService.objects;
+    return objectWeatherInfo?.find(info => info.objectId === currentObjectId);
+  });
+  private readonly activatedRoute = inject(ActivatedRoute);
   currentObjectId = toSignal(
-    this.activatedRoute.firstChild!.paramMap.pipe(
-      map(data => String(data.get('id'))),
+    this.activatedRoute.queryParams.pipe(
+      map(data => Number(data['id'])),
     )
   );
-  private router = inject(Router);
 
   constructor() {
     effect(() => {
       const a = this.objectsService.objectWeatherInfo();
-      const b = this.currentObjectId();
 
       console.log(a);
-      console.log(b);
     });
   }
 
-  onCardAdditionalInfo(objectId: string): void {
-    this.router.navigate(['/objects/', objectId]);
+  onCardAdditionalInfo(objectId: number): void {
+    this.router.navigate(['/objects'], {
+      queryParams: {
+        'id': objectId,
+      },
+    });
+  }
+
+  onCloseQuickInfo() {
+    this.router.navigate(['/objects']);
   }
 }

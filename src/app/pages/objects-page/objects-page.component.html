@@ -1,16 +1,21 @@
 @let _objectWeatherInfo = objectWeatherInfo();
+@let _currentWeatherInfo = currentWeatherInfo();
 
-<h1 class="page-title">Объекты</h1>
+<section class="content-wrapper">
+  <h1 class="page-title">Объекты</h1>
 
-<section class="content">
-  <div class="objects-list">
-    @for (item of _objectWeatherInfo; track item.objectId) {
-      <app-weather-card (additionalInfo)="onCardAdditionalInfo($event)" [weatherInfo]="item"/>
-    }
-  </div>
+  <section class="content">
+    <div class="objects-list">
+      @for (item of _objectWeatherInfo; track item.objectId) {
+        <app-weather-card (additionalInfo)="onCardAdditionalInfo($event)" [weatherInfo]="item"/>
+      }
+    </div>
+  </section>
 </section>
 
-<div class="quick-statistic-wrapper">
-  <router-outlet/>
-</div>
+@if (_currentWeatherInfo) {
+  <div class="quick-statistic-wrapper">
+    <app-quick-object-info (close)="onCloseQuickInfo()" [weatherInfo]="_currentWeatherInfo"/>
+  </div>
+}
 

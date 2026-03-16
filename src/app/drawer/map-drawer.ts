@@ -28,8 +28,8 @@ export class MapDrawer {
   onPolygonClick = new EventEmitter<IPolygon>();
   onDrawingModeChange = new EventEmitter<DrawingMode>();
   private markerCreator: typeof YMapDefaultMarker;
-  private polygonToMapObjectMap = new Map<string, YMapFeature>();
-  private polygonMarkerToMapObjectMap = new Map<string, YMapDefaultMarker>();
+  private polygonToMapObjectMap = new Map<number, YMapFeature>();
+  private polygonMarkerToMapObjectMap = new Map<number, YMapDefaultMarker>();
 
   constructor(map: YMap) {
     this._map = map;
