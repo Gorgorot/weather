@@ -16,7 +16,7 @@ echarts.use([
   GridComponent,
   LineChart,
   BarChart,
-  CanvasRenderer // Обязательно добавляем сюда
+  CanvasRenderer
 ]);
 
 @Component({
