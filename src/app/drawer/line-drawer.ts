@@ -18,11 +18,7 @@ export class LineDrawer extends MapDrawerBaseExecutor {
     fill: MathHelper.addAlphaToHex(this.baseColor, .6)
   };
 
-  constructor() {
-    super();
-  }
-
-  override clickAction(object: DomEventHandlerObject, event: DomEvent) {
+  clickAction(object: DomEventHandlerObject, event: DomEvent) {
     if (!this.currentFigure) {
       return null;
     }
@@ -39,7 +35,7 @@ export class LineDrawer extends MapDrawerBaseExecutor {
     return this.currentFigure;
   }
 
-  override createFigure() {
+  createFigure() {
     const line = new ymaps3.YMapFeature({
       geometry: {
         type: 'LineString',
@@ -56,7 +52,7 @@ export class LineDrawer extends MapDrawerBaseExecutor {
     return line;
   }
 
-  override rightClickAction(): YMapFeatureProps {
+  rightClickAction(): YMapFeatureProps {
     return {
       geometry: {
         type: 'Polygon',

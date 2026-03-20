@@ -137,13 +137,13 @@ export class MapService {
   }
 
   private listenDrawingModeChange() {
-    this.drawer.onDrawingModeChange.subscribe(drawingMode => {
+    this.drawer.events.onDrawingModeChange.subscribe(drawingMode => {
       this.selectedDrawingMode.set(drawingMode);
     });
   }
 
   private listenDrawerAddPolygonEvent() {
-    this.drawer.onAddPolygon
+    this.drawer.events.onAddPolygon
       .pipe(
         switchMap((event) => {
           return this.mapDialogsService.open(AddPolygonModalComponent, {
@@ -199,7 +199,7 @@ export class MapService {
   }
 
   private listenOnClickPolygonMarker() {
-    this.drawer.onPolygonClick.subscribe(polygon => {
+    this.drawer.events.onPolygonClick.subscribe(polygon => {
       this.selectPolygon(polygon);
     })
   }

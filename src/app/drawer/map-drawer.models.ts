@@ -6,24 +6,15 @@ export enum DrawingMode {
   LINE,
 }
 
-export class MapDrawerBaseExecutor<T = LngLat> {
+export abstract class MapDrawerBaseExecutor<T = LngLat> {
   coordinates: T[] = [];
-  currentFigure: YMapFeature | null;
+  currentFigure: YMapFeature | null = null;
   isRemovable: boolean = false;
   drawingStyle: DrawingStyle = {};
 
-  constructor() {
-  }
+  abstract clickAction(object: DomEventHandlerObject, event: DomEvent): YMapFeature | null;
 
-  clickAction(object: DomEventHandlerObject, event: DomEvent): YMapFeature | null {
-    return null;
-  }
+  abstract createFigure(): YMapFeature | null;
 
-  createFigure(): YMapFeature | null {
-    return null;
-  }
-
-  rightClickAction(...args: any[]): YMapFeatureProps | null {
-    return null;
-  }
+  abstract rightClickAction(...args: any[]): YMapFeatureProps | null;
 }
