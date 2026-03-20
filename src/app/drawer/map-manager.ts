@@ -18,7 +18,7 @@ export interface IMapDrawerAddPolygonEvent {
   data: DomEvent;
 }
 
-export class MapDrawer {
+export class MapManager {
   readonly events = new MapDrawerEvents();
   private readonly map: YMap;
   private drawingMode: DrawingMode = DrawingMode.NONE;

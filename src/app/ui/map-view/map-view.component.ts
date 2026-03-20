@@ -1,9 +1,8 @@
-import {Component, effect, ElementRef, inject, OnInit, signal, viewChild} from '@angular/core';
-import {MapApiLoadState, MapService} from './map.service';
-import {DrawingMode} from '../../drawer/map-drawer.models';
-import {FormControl} from '@angular/forms';
-import {IDaDataSuggestion} from '../../services/da-data.service';
-import {Themes, ThemeService} from '../../services/theme.service';
+import { Component, effect, ElementRef, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
+import { MapApiLoadState, MapService } from './map.service';
+import { DrawingMode } from '../../drawer/map-drawer.models';
+import { IDaDataSuggestion } from '../../services/da-data.service';
+import { Themes, ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-map-view',
@@ -15,7 +14,7 @@ import {Themes, ThemeService} from '../../services/theme.service';
     '[class.light]': 'themeService.getCurrentTheme()() === Themes.LIGHT'
   }
 })
-export class MapViewComponent implements OnInit {
+export class MapViewComponent implements OnInit, OnDestroy {
   readonly themeService = inject(ThemeService);
   readonly Themes = Themes;
   private readonly mapService = inject(MapService);
@@ -36,8 +35,6 @@ export class MapViewComponent implements OnInit {
       })
     }
   });
-
-  searchControl = new FormControl(null);
 
   constructor(
     private element: ElementRef,
@@ -73,5 +70,9 @@ export class MapViewComponent implements OnInit {
       this.mapService.loadApi();
     }
     this.resizeObserver.observe(this.element.nativeElement);
+  }
+
+  ngOnDestroy() {
+    this.mapService.detachMap();
   }
 }

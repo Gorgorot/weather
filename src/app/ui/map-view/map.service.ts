@@ -2,7 +2,7 @@ import { inject, Injectable, Injector, signal } from '@angular/core';
 import { MAP_API_KEY } from '../../app.module';
 import { filter, map, of, switchMap, take, tap } from 'rxjs';
 import { LngLat, YMapLocationRequest } from 'ymaps3';
-import { MapDrawer } from '../../drawer/map-drawer';
+import { MapManager } from '../../drawer/map-manager';
 import { DrawingMode } from '../../drawer/map-drawer.models';
 import { IPolygon, PolygonsStoreService } from '../../services/polygons-store.service';
 import { MapDialogsService } from './map-dialogs.service';
@@ -35,7 +35,7 @@ export class MapService {
     ),
     { initialValue: null }
   );
-  drawer: MapDrawer;
+  drawer: MapManager;
   polygons = this.polygonsStoreService.allPolygons;
 
   constructor(private injector: Injector) {
@@ -78,7 +78,7 @@ export class MapService {
     map.addChild(new YMapDefaultSchemeLayer({}));
     map.addChild(new YMapDefaultFeaturesLayer({}));
 
-    this.drawer = new MapDrawer(map);
+    this.drawer = new MapManager(map);
 
     await this.drawer.init();
 
@@ -86,6 +86,10 @@ export class MapService {
     this.listenOnClickPolygonMarker();
     this.listenDrawingModeChange();
     this.drawAllPolygons();
+  }
+
+  detachMap() {
+    this.drawer.destroy();
   }
 
   updatePolygon(polygon: IPolygon) {

@@ -1,7 +1,7 @@
 import { Observable, Subject } from 'rxjs';
 import { DrawingMode } from './map-drawer.models';
 import { IPolygon } from '../services/polygons-store.service';
-import type { IMapDrawerAddPolygonEvent } from './map-drawer';
+import type { IMapDrawerAddPolygonEvent } from './map-manager';
 
 export class MapDrawerEvents {
   private readonly addPolygon$ = new Subject<IMapDrawerAddPolygonEvent>();
