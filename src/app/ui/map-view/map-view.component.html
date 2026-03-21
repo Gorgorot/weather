@@ -1,8 +1,16 @@
 @let _mapSize = mapSize();
 @let _weatherInfo = weatherInfo();
 @let _selectedDrawingMode = selectedDrawingMode();
+@let _cursorPos = cursorPos();
+@let _cursorAnimating = cursorAnimating();
 
 <div class="map-container" #mapContainer [style.width.px]="_mapSize.width" [style.height.px]="_mapSize.height"></div>
+
+@if (_selectedDrawingMode === DrawingMode.LINE) {
+  <div class="draw-cursor"
+       [class.draw-cursor--click]="_cursorAnimating"
+       [style.transform]="'translate(' + _cursorPos.x + 'px, ' + _cursorPos.y + 'px)'"></div>
+}
 
 <div class="tools tools-top">
   <button (click)="startDrawLine()" [class.tools-button--active]="_selectedDrawingMode === DrawingMode.LINE"

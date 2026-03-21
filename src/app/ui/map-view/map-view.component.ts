@@ -1,8 +1,8 @@
-import { Component, effect, ElementRef, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
-import { MapApiLoadState, MapService } from './map.service';
-import { DrawingMode } from '../../drawer/map-drawer.models';
-import { IDaDataSuggestion } from '../../services/da-data.service';
-import { Themes, ThemeService } from '../../services/theme.service';
+import {Component, effect, ElementRef, HostListener, inject, OnDestroy, OnInit, signal, viewChild} from '@angular/core';
+import {MapApiLoadState, MapService} from './map.service';
+import {DrawingMode} from '../../drawer/map-drawer.models';
+import {IDaDataSuggestion} from '../../services/da-data.service';
+import {Themes, ThemeService} from '../../services/theme.service';
 
 @Component({
   selector: 'app-map-view',
@@ -26,6 +26,24 @@ export class MapViewComponent implements OnInit, OnDestroy {
   mapSize = signal({ width: 100, height: 100 });
   weatherInfo = this.mapService.weatherInfo;
   selectedDrawingMode = this.mapService.selectedDrawingMode;
+  cursorPos = signal({x: 0, y: 0});
+  cursorAnimating = signal(false);
+
+  @HostListener('mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    const rect = this.element.nativeElement.getBoundingClientRect();
+    this.cursorPos.set({x: event.clientX - rect.left, y: event.clientY - rect.top});
+  }
+
+  @HostListener('click')
+  onMapClick() {
+    if (this.selectedDrawingMode() !== DrawingMode.LINE) return;
+    this.cursorAnimating.set(false);
+    requestAnimationFrame(() => {
+      this.cursorAnimating.set(true);
+      setTimeout(() => this.cursorAnimating.set(false), 300);
+    });
+  }
 
   resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[], observer: ResizeObserver) => {
     if (entries.length > 0) {

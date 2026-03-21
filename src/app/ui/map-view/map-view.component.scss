@@ -8,6 +8,10 @@
   width: 100%;
   position: relative;
 
+  &:has(.draw-cursor) {
+    cursor: none;
+  }
+
   &.dark {
     @include map-dark-theme();
   }
@@ -21,6 +25,46 @@
     right: 25px;
     top: 25px;
     max-width: 300px;
+  }
+
+  .draw-cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #6a7aff;
+    background: rgba(106, 122, 255, 0.25);
+    pointer-events: none;
+    z-index: 10;
+    translate: -50% -50%;
+    box-shadow: 0 0 8px rgba(106, 122, 255, 0.5);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: rgba(106, 122, 255, 0.5);
+      transform: scale(1);
+      opacity: 0;
+    }
+
+    &--click::after {
+      animation: cursor-ripple 0.3s ease-out forwards;
+    }
+  }
+
+  @keyframes cursor-ripple {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(3.5);
+      opacity: 0;
+    }
   }
 
   .tools {
