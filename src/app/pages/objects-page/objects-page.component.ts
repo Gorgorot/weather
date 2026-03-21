@@ -6,12 +6,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { QuickObjectInfoComponent } from '../../ui/quick-object-info/quick-object-info.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-objects-page',
   imports: [
     WeatherCardComponent,
-    QuickObjectInfoComponent
+    QuickObjectInfoComponent,
+    MatProgressSpinner,
   ],
   templateUrl: './objects-page.component.html',
   styleUrl: './objects-page.component.scss',
@@ -27,6 +29,7 @@ export class ObjectsPageComponent {
   private readonly objectsService = inject(ObjectsService);
   private router = inject(Router);
   objectWeatherInfo = this.objectsService.objectWeatherInfo;
+  loading = this.objectsService.loading;
   currentWeatherInfo = computed(() => {
     const currentObjectId = this.currentObjectId();
     const objectWeatherInfo = this.objectWeatherInfo();

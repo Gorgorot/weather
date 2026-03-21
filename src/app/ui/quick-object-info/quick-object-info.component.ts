@@ -9,6 +9,7 @@ import { GridComponent, TitleComponent, TooltipComponent } from 'echarts/compone
 import { BarChart, LineChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 import { QuickInfoService } from './quick-info.service';
+import { IconAccentWrapper } from '../icon-accent/icon-accent-wrapper.component';
 
 echarts.use([
   TitleComponent,
@@ -24,7 +25,8 @@ echarts.use([
   imports: [
     MatIconButton,
     MatIcon,
-    NgxEchartsDirective
+    NgxEchartsDirective,
+    IconAccentWrapper
   ],
   templateUrl: './quick-object-info.component.html',
   styleUrl: './quick-object-info.component.scss',
@@ -37,13 +39,14 @@ echarts.use([
 export class QuickObjectInfoComponent {
   weatherInfo = input.required<WeatherInfo>();
   close = output<void>();
+  currentParams = signal<IOpenMeteoRowInfoParam[]>([]);
   hourlySets = signal<Array<{ chartData: EChartsCoreOption, setData: IOpenMeteoRowInfoParam }>>([]);
   private readonly quickInfoService = inject(QuickInfoService);
 
   constructor() {
     effect(() => {
       this.quickInfoService.attach(this.weatherInfo());
-
+      this.currentParams.set(this.quickInfoService.getCurrentParams());
       this.hourlySets.set(this.quickInfoService.getHourlyInfoSets());
     });
   }

@@ -34,7 +34,7 @@ export enum OpenmeteoCurrentParameters {
   wind_speed_10m = 'wind_speed_10m',
 }
 
-export const OpenmeteoCurrentParametersList = Object.keys(OpenmeteoHourlyParameters);
+export const OpenmeteoCurrentParametersList = Object.keys(OpenmeteoCurrentParameters);
 
 export enum OpenmeteoDailyParameters {
   temperature_2m_max = 'temperature_2m_max',

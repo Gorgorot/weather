@@ -1,9 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { PolygonsStoreService } from './polygons-store.service';
 import { OpenMeteoDataTypes, WeatherInfo } from '../weather/weather-info';
 import { WeatherApiService } from './weather-api.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { map, mergeMap, zip } from 'rxjs';
+import { map, mergeMap, tap, zip } from 'rxjs';
 import { OpenmeteoDataTypeToQueryName } from '../weather/openmeteo-parameters';
 
 @Injectable()
@@ -12,9 +12,11 @@ export class ObjectsService {
   private readonly weatherApiService = inject(WeatherApiService);
 
   objects = this.polygonsStoreService.allPolygons;
+  loading = signal(true);
   objectWeatherInfo = toSignal(
     toObservable(this.objects)
       .pipe(
+        tap(() => this.loading.set(true)),
         mergeMap(objects => {
           const queries = objects.map(item => {
             const req = item.requestedParameters!.reduce((acc, value) => {
@@ -28,6 +30,7 @@ export class ObjectsService {
 
           return zip(queries).pipe(map(data => ({ weatherData: data, objects, })))
         }),
+        tap(() => this.loading.set(false)),
         map(data => {
           return data.weatherData.map((weather, index) => {
             const item = data.objects[index];

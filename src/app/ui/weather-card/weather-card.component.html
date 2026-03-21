@@ -1,14 +1,21 @@
 @let _weatherInfo = weatherInfo();
 @let _currentTemperature = currentTemperature();
+@let _windDirection = windDirection();
 
 <div class="weather-card">
   <div class="weather-card__name">{{ _weatherInfo.title }}</div>
 
-  <div class="weather-card__content">
-    <app-icon-accent-wrapper>
-      <mat-icon [svgIcon]="_currentTemperature?.icon ?? ''"/>
-    </app-icon-accent-wrapper>
-    {{ _currentTemperature?.value }}
+  <div class="weather-card__body">
+    <div class="weather-card__content">
+      <app-icon-accent-wrapper>
+        <mat-icon [svgIcon]="_currentTemperature?.icon ?? ''"/>
+      </app-icon-accent-wrapper>
+      {{ _currentTemperature?.value }}
+    </div>
+
+    @if (_windDirection !== null) {
+      <app-wind-rose [direction]="_windDirection"/>
+    }
   </div>
 
   <div class="weather-card__actions">

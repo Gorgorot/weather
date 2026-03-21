@@ -36,6 +36,7 @@ export class PolygonSettings<T = string> {
       key: key,
       selected: this.keys.includes(key as T)
     }));
+    debugger;
   }
 
   getQuery() {

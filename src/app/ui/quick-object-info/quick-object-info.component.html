@@ -1,15 +1,32 @@
+@let _weatherInfo = weatherInfo();
+@let _currentParams = currentParams();
 @let _hourlySets = hourlySets();
 
-<div class="info-title">
-  <h2>Быстрая информация</h2>
-  <button (click)="close.emit()" mat-icon-button>
+<div class="sidebar-header">
+  <h2 class="sidebar-title">
+    {{ _weatherInfo.title }}
+  </h2>
+  <button (click)="close.emit()" class="sidebar-close" mat-icon-button>
     <mat-icon>close</mat-icon>
   </button>
 </div>
 
+<div class="sidebar-params">
+  @for (param of _currentParams; track param.key) {
+    <div class="param-row">
+      <div class="param-row__left">
+        @if (param.icon) {
+          <app-icon-accent-wrapper class="param-row__icon-wrapper">
+            <mat-icon [svgIcon]="param.icon" class="param-row__icon"></mat-icon>
+          </app-icon-accent-wrapper>
+        }
+        <span class="param-row__label">{{ param.title }}:</span>
+      </div>
+      <span class="param-row__value">{{ param.value }}</span>
+    </div>
+  }
+</div>
+
 @for (set of _hourlySets; track set.setData.key) {
-  <div [options]="set.chartData" echarts></div>
+  <div [options]="set.chartData" class="sidebar-chart" echarts></div>
 }
-
-
-

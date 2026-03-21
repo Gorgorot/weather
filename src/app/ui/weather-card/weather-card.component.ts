@@ -5,13 +5,15 @@ import { MatButton } from '@angular/material/button';
 import { OpenmeteoCurrentParameters } from '../../weather/openmeteo-parameters';
 import { MatIcon } from '@angular/material/icon';
 import { IconAccentWrapper } from '../icon-accent/icon-accent-wrapper.component';
+import { WindRoseComponent } from '../wind-rose/wind-rose.component';
 
 @Component({
   selector: 'app-weather-card',
   imports: [
     MatButton,
     MatIcon,
-    IconAccentWrapper
+    IconAccentWrapper,
+    WindRoseComponent
   ],
   templateUrl: './weather-card.component.html',
   styleUrl: './weather-card.component.scss',
@@ -29,5 +31,15 @@ export class WeatherCardComponent {
     const info = this.weatherInfo();
 
     return info.get(OpenMeteoDataTypes.CURRENT, OpenmeteoCurrentParameters.temperature_2m);
+  });
+
+  windDirection = computed(() => {
+    try {
+      const info = this.weatherInfo();
+      const param = info.get(OpenMeteoDataTypes.CURRENT, OpenmeteoCurrentParameters.wind_direction_10m);
+      return param ? parseFloat(param.value) : null;
+    } catch {
+      return null;
+    }
   });
 }

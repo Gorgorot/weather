@@ -29,6 +29,13 @@
     margin-bottom: 40px;
   }
 
+  .loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+  }
+
   .objects-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -45,10 +52,10 @@
 
   .quick-statistic-wrapper {
     height: 100%;
-    background: #18191ae6;
+    background: #141722;
     z-index: 2;
-    padding: 40px 24px;
-    border-left: 1px solid #555555;
+    padding: 20px 16px;
+    border-left: 1px solid #2a2a3a;
     max-height: 100%;
     overflow-y: auto;
     overflow-x: hidden;

@@ -2,85 +2,127 @@ import { Injectable, signal } from '@angular/core';
 import { IOpenMeteoRowInfoParam, OpenMeteoDataTypes, WeatherInfo } from '../../weather/weather-info';
 import { EChartsCoreOption } from 'echarts';
 import { OpenmeteoDaily } from '../../weather/openmeteo-dailty';
+import * as echarts from 'echarts/core';
+
+interface ChartSet {
+  chartData: EChartsCoreOption;
+  setData: IOpenMeteoRowInfoParam;
+}
 
 @Injectable()
 export class QuickInfoService {
   private weatherInfo = signal<WeatherInfo | null>(null);
 
-  constructor() {
-  }
-
   attach(weatherInfo: WeatherInfo) {
-    this.weatherInfo.set(weatherInfo)
+    this.weatherInfo.set(weatherInfo);
   }
 
-  getHourlyInfoSets(): Array<{ chartData: EChartsCoreOption, setData: IOpenMeteoRowInfoParam }> {
+  getCurrentParams(): IOpenMeteoRowInfoParam[] {
     const weatherInfo = this.weatherInfo();
+    if (!weatherInfo) return [];
 
-    if (!weatherInfo) {
-      return [];
+    for (const record of weatherInfo.records) {
+      if (record.type === OpenMeteoDataTypes.CURRENT) {
+        return record.includedParams;
+      }
     }
+    return [];
+  }
 
-    const hourlyInfo = [...weatherInfo.records].find(record => record.type === OpenMeteoDataTypes.DAILY);
+  getHourlyInfoSets(): ChartSet[] {
+    const weatherInfo = this.weatherInfo();
+    if (!weatherInfo) return [];
 
-    if (!hourlyInfo) {
-      return [];
-    }
+    const dailyInfo = [...weatherInfo.records].find(record => record.type === OpenMeteoDataTypes.DAILY);
+    if (!dailyInfo) return [];
 
-    return hourlyInfo.includedParams.map(param => {
-      const adapter = hourlyInfo.data as OpenmeteoDaily;
+    const chartColors: Record<string, { color: string; type: 'line' | 'bar' }> = {
+      'temperature_2m_max': { color: '#ff8c3a', type: 'line' },
+      'temperature_2m_min': { color: '#4ac6ff', type: 'line' },
+      'wind_speed_10m_max': { color: '#4a7cff', type: 'bar' },
+    };
+
+    return dailyInfo.includedParams.map(param => {
+      const adapter = dailyInfo.data as OpenmeteoDaily;
+      const config = chartColors[param.key] ?? { color: '#ff8c3a', type: 'line' };
+
+      const dayNames = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+      const labels = adapter.time.map(d => dayNames[d.getDay()]);
+      const values = adapter.time.map((_: Date, i: number) => Math.round(adapter[param.key][i]));
+
+      const seriesItem: any = {
+        data: values,
+        type: config.type,
+        color: config.color,
+        name: param.title,
+      };
+
+      if (config.type === 'line') {
+        seriesItem.smooth = true;
+        seriesItem.symbol = 'circle';
+        seriesItem.symbolSize = 6;
+        seriesItem.lineStyle = { width: 2 };
+        seriesItem.areaStyle = {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: config.color + '40' },
+            { offset: 1, color: config.color + '05' },
+          ]),
+        };
+      } else {
+        seriesItem.barWidth = '40%';
+        seriesItem.itemStyle = {
+          borderRadius: [3, 3, 0, 0],
+        };
+      }
+
       const chartData: EChartsCoreOption = {
         title: {
-          text: param.title,      // Основной текст
-          left: 'center',              // Выравнивание (left, center, right)
+          text: param.title,
+          left: 10,
+          top: 8,
           textStyle: {
-            color: '#fff',             // Цвет текста
-            fontSize: 16               // Размер шрифта
-          }
+            color: '#e0e0e0',
+            fontSize: 14,
+            fontWeight: 600,
+          },
+          subtextStyle: {
+            color: config.color,
+            fontSize: 12,
+            fontWeight: 600,
+          },
+        },
+        grid: {
+          left: 40,
+          right: 20,
+          top: 50,
+          bottom: 30,
         },
         xAxis: {
-          type: 'time',
-          axisLabel: {
-            // {MMM} — сокращенное название месяца (мар, апр)
-            // {d} — число месяца
-            formatter: '{d} {MMM}',
-
-            // Чтобы подписи не накладывались друг на друга при сжатии
-            hideOverlap: true,
-
-            // Можно немного повернуть текст, если даты слишком плотно
-            // rotate: 30
-          }
+          type: 'category',
+          data: labels,
+          axisLine: { show: false },
+          axisTick: { show: false },
+          axisLabel: { color: '#8a8a9a', fontSize: 11 },
         },
         yAxis: {
           type: 'value',
+          splitLine: { lineStyle: { color: '#2a2a3a' } },
+          axisLabel: { color: '#8a8a9a', fontSize: 11 },
         },
-        series: [
-          {
-            data: adapter.time.map((date, index) => {
-              return [
-                date.toISOString().split('T')[0],
-                Math.floor(adapter[param.key][index]),
-              ]
-            }),
-            smooth: true,
-            type: 'line',
-            color: 'red'
-          },
-        ],
+        series: [seriesItem],
         tooltip: {
           trigger: 'axis',
+          backgroundColor: '#1e1e2e',
+          borderColor: '#333',
+          textStyle: { color: '#e0e0e0' },
           formatter: (params: any) => {
-            const date = new Date(params[0].value[0]);
-            return `${date.toLocaleDateString('ru-RU')} <br/> Значение: ${params[0].value[1]} ${param.unit} `;
-          }
+            const val = params[0].value;
+            return `${params[0].name}: <b>${val} ${param.unit}</b>`;
+          },
         },
       };
 
-      return {
-        chartData,
-        setData: param,
-      };
+      return { chartData, setData: param };
     });
   }
 }
