@@ -54,10 +54,11 @@ export class ObjectsPageComponent {
   }
 
   onCardAdditionalInfo(objectId: number): void {
-    const has = this.objectsService.objectWithIdHasInfoParams(objectId);
+    const objectWithIdHasInfoParams = this.objectsService.objectWithIdHasInfoParams(objectId);
 
-    if (!has) {
-      this.toastr.error('Для этого объекта не заданы параметры запроса', 'Ошибка');
+    if (!objectWithIdHasInfoParams) {
+      this.toastr.error('Для этого объекта не заданы параметры', 'Ошибка');
+
       return;
     }
 
