@@ -13,16 +13,16 @@ html[data-theme='light'] {
   @include mat.all-component-themes($light-theme);
 
   @include mat.sidenav-overrides((
-    content-background-color: rgba(0, 0, 0, 0.75),
-    container-background-color: #eaeaea,
+    content-background-color: rgba(26, 29, 46, 0.4),
+    container-background-color: #ffffff,
   ));
 
   @include mat.icon-button-overrides((
-    icon-color: #4c4cf5,
+    icon-color: #5a6aee,
   ));
 
   @include mat.icon-overrides((
-    color: #4c4cf5,
+    color: #5a6aee,
   ));
 }
 

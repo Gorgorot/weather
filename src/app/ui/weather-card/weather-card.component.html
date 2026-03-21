@@ -1,27 +1,31 @@
 @let _weatherInfo = weatherInfo();
-@let _currentTemperature = currentTemperature();
-@let _windDirection = windDirection();
+@let _center = _weatherInfo.center;
 
 <div class="weather-card">
-  <div class="weather-card__name">{{ _weatherInfo.title }}</div>
+  <div [style.background]="_weatherInfo.color" class="weather-card__color-bar"></div>
 
-  <div class="weather-card__body">
-    <div class="weather-card__content">
-      <app-icon-accent-wrapper>
-        <mat-icon [svgIcon]="_currentTemperature?.icon ?? ''"/>
-      </app-icon-accent-wrapper>
-      {{ _currentTemperature?.value }}
+  <div class="weather-card__content">
+    <div [matTooltip]="_weatherInfo.title" class="weather-card__name"
+         matTooltipPosition="above">{{ _weatherInfo.title }}
     </div>
 
-    @if (_windDirection !== null) {
-      <app-wind-rose [direction]="_windDirection"/>
-    }
-  </div>
+    <div class="weather-card__coords">
+      <div class="weather-card__coord">
+        <span class="weather-card__coord-label">Долгота</span>
+        <span class="weather-card__coord-value">{{ _center[0] | number: '1.4-4' }}</span>
+      </div>
+      <div class="weather-card__coord">
+        <span class="weather-card__coord-label">Широта</span>
+        <span class="weather-card__coord-value">{{ _center[1] | number: '1.4-4' }}</span>
+      </div>
+    </div>
 
-  <div class="weather-card__actions">
-    <button (click)="additionalInfo.emit(_weatherInfo.objectId)" class="button-primary button-sm" mat-flat-button>
-      Подробнее
-    </button>
-    <button (click)="delete.emit(_weatherInfo.objectId)" class="button-warn button-sm" mat-flat-button>Удалить</button>
+    <div class="weather-card__actions">
+      <button (click)="additionalInfo.emit(_weatherInfo.objectId)" class="button-primary button-sm" mat-flat-button>
+        Подробнее
+      </button>
+      <button (click)="delete.emit(_weatherInfo.objectId)" class="button-warn button-sm" mat-flat-button>Удалить
+      </button>
+    </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { OpenMeteoDataTypes } from './weather-info';
+import {OpenMeteoDataTypes} from './weather-info';
 
 export enum OpenmeteoHourlyParameters {
   temperature_2m = 'temperature_2m',
@@ -24,12 +24,8 @@ export enum OpenmeteoCurrentParameters {
   precipitation = 'precipitation',
   rain = 'rain',
   snowfall = 'snowfall',
-  weather_code = 'weather_code',
   showers = 'showers',
-  cloud_cover = 'cloud_cover',
   pressure_msl = 'pressure_msl',
-  surface_pressure = 'surface_pressure',
-  wind_gusts_10m = 'wind_gusts_10m',
   wind_direction_10m = 'wind_direction_10m',
   wind_speed_10m = 'wind_speed_10m',
 }

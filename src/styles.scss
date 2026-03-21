@@ -1,5 +1,6 @@
 @use './assets/styles/elements';
 @use './assets/styles/theme/material.theme';
+@use 'ngx-toastr/toastr';
 
 * {
   margin: 0;

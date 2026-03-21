@@ -3,35 +3,21 @@
 <mat-dialog-content>
   <div class="properties">
     <div class="properties-item">
-      <div class="properties-label">
-        Долгота
-      </div>
-      <div class="properties-value">
-        {{ data.center[0] }}
-      </div>
+      <span class="properties-label">Долгота</span>
+      <span class="properties-value">{{ data.center[0] }}</span>
     </div>
     <div class="properties-item">
-      <div class="properties-label">
-        Широта
-      </div>
-      <div class="properties-value">
-        {{ data.center[1] }}
-      </div>
+      <span class="properties-label">Широта</span>
+      <span class="properties-value">{{ data.center[1] }}</span>
     </div>
     <div class="properties-item">
-      <div class="properties-label">
-        Цвет
-      </div>
-      <div [style.background-color]="data.style!.fill" [style.height.px]="14" [style.width.px]="70"
-           class="properties-value"></div>
+      <span class="properties-label">Цвет</span>
+      <div [style.background-color]="data.style!.fill" class="color-swatch"></div>
     </div>
   </div>
-  <br>
-  <mat-divider/>
-  <br>
 
-  <div class="parameters-title">Параметры погоды</div>
-  <div>
+  <div class="parameters-title" style="margin-top: 20px;">Параметры погоды</div>
+  <div class="sections">
     @for (section of sections; track section.name) {
       <mat-expansion-panel (closed)="section.toggle()" (opened)="section.toggle()">
         <mat-expansion-panel-header>

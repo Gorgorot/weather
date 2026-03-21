@@ -1,7 +1,8 @@
-import { Injectable, signal } from '@angular/core';
-import { IOpenMeteoRowInfoParam, OpenMeteoDataTypes, WeatherInfo } from '../../weather/weather-info';
-import { EChartsCoreOption } from 'echarts';
-import { OpenmeteoDaily } from '../../weather/openmeteo-dailty';
+import {Injectable, signal} from '@angular/core';
+import {IOpenMeteoRowInfoParam, OpenMeteoDataTypes, WeatherInfo} from '../../weather/weather-info';
+import {OpenmeteoCurrentParameters} from '../../weather/openmeteo-parameters';
+import {EChartsCoreOption} from 'echarts';
+import {OpenmeteoDaily} from '../../weather/openmeteo-dailty';
 import * as echarts from 'echarts/core';
 
 interface ChartSet {
@@ -15,6 +16,18 @@ export class QuickInfoService {
 
   attach(weatherInfo: WeatherInfo) {
     this.weatherInfo.set(weatherInfo);
+  }
+
+  getWindDirection(): number | null {
+    const weatherInfo = this.weatherInfo();
+    if (!weatherInfo) return null;
+
+    try {
+      const param = weatherInfo.get(OpenMeteoDataTypes.CURRENT, OpenmeteoCurrentParameters.wind_direction_10m);
+      return param ? parseFloat(param.value) : null;
+    } catch {
+      return null;
+    }
   }
 
   getCurrentParams(): IOpenMeteoRowInfoParam[] {

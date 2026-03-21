@@ -1,9 +1,29 @@
 :host {
   display: block;
-  box-shadow: -3px 1px 26px 0px rgba(0, 0, 0, 0.8);
   z-index: 2;
+  background: #141722;
+  border-bottom: 1px solid #2a2a3a;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+
+  .header {
+    background: transparent;
+    color: #e0e0e0;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
 
   .example-spacer {
     flex: 1 1 auto;
+  }
+}
+
+:host-context(html[data-theme='light']) {
+  background: #ffffff;
+  border-bottom-color: #dde0ea;
+  box-shadow: 0 2px 12px rgba(26, 29, 46, 0.08);
+
+  .header {
+    color: #1a1d2e;
   }
 }

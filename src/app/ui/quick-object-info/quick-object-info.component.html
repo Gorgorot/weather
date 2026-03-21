@@ -1,6 +1,7 @@
 @let _weatherInfo = weatherInfo();
 @let _currentParams = currentParams();
 @let _hourlySets = hourlySets();
+@let _windDirection = windDirection();
 
 <div class="sidebar-header">
   <h2 class="sidebar-title">
@@ -26,6 +27,13 @@
     </div>
   }
 </div>
+
+@if (_windDirection !== null) {
+  <div class="sidebar-chart sidebar-chart--wind-rose">
+    <span class="sidebar-chart__title">Направление ветра</span>
+    <app-wind-rose [direction]="_windDirection"/>
+  </div>
+}
 
 @for (set of _hourlySets; track set.setData.key) {
   <div [options]="set.chartData" class="sidebar-chart" echarts></div>

@@ -12,9 +12,23 @@ $light-theme: mat.define-theme((
 ));
 
 @mixin light-theme-element {
-  --button-primary-bg: #128ef9;
-  --button-warn-bg: #ff3c3c;
-  --text-color: #1a1b1f;
-  --accent-text-color: #6052ff;
-  --accent-border-color: #6052ff;
+  --button-primary-bg: #5a6aee;
+  --button-warn-bg: #e53935;
+  --text-color: #1a1d2e;
+  --accent-text-color: #5a6aee;
+  --accent-border-color: #5a6aee;
+
+  --lt-bg: #f4f5f9;
+  --lt-surface: #ffffff;
+  --lt-surface-raised: #eef0f6;
+  --lt-border: #dde0ea;
+  --lt-border-subtle: #eceef5;
+  --lt-text-primary: #1a1d2e;
+  --lt-text-secondary: #6b7080;
+  --lt-text-muted: #9ea3b4;
+  --lt-accent: #5a6aee;
+  --lt-accent-soft: rgba(90, 106, 238, 0.1);
+  --lt-shadow-sm: 0 1px 4px rgba(26, 29, 46, 0.08), 0 2px 12px rgba(26, 29, 46, 0.06);
+  --lt-shadow-md: 0 4px 16px rgba(26, 29, 46, 0.1), 0 1px 4px rgba(26, 29, 46, 0.06);
+  --lt-shadow-lg: 0 8px 32px rgba(26, 29, 46, 0.12), 0 2px 8px rgba(26, 29, 46, 0.08);
 }

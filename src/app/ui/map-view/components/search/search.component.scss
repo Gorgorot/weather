@@ -1,19 +1,20 @@
 @use '@angular/material' as mat;
 
-$iconSize: 32px;
-$baseWidth: 400px;
+$iconSize: 24px;
+$baseWidth: 360px;
 
 :host {
   display: flex;
-  background: #fff;
+  background: #141722;
+  border: 1px solid #2a2a3a;
+  border-radius: 8px;
   position: relative;
-  transition: all .3s ease-in;
+  transition: width 0.2s ease, height 0.2s ease;
   width: $baseWidth;
 
   &.collapsed {
-    width: 56px;
-    height: 56px;
-    transition: all .3s ease-out;
+    width: 44px;
+    height: 44px;
 
     .search-field {
       display: none;
@@ -28,13 +29,14 @@ $baseWidth: 400px;
 
   .toggle-button {
     position: absolute;
-    right: 0;
+    right: 4px;
     top: 50%;
     transform: translate(0, -50%);
+    color: #6a7aff;
 
     @include mat.icon-button-overrides((
       icon-size: $iconSize,
-    ))
+    ));
   }
 
   mat-icon {
@@ -47,12 +49,16 @@ $baseWidth: 400px;
     width: 100%;
 
     .mdc-text-field {
-      padding: 0 40px 0 16px;
+      padding: 0 44px 0 16px;
     }
   }
 
   @include mat.form-field-overrides((
-    filled-container-color: #fff,
-    filled-input-text-color: #000,
+    filled-container-color: transparent,
+    filled-input-text-color: #e0e0e0,
+    filled-label-text-color: #8a8a9a,
+    filled-focus-label-text-color: #6a7aff,
+    filled-active-indicator-color: #6a7aff,
+    filled-hover-active-indicator-color: #3a3a5a,
   ));
 }

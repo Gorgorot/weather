@@ -1,10 +1,10 @@
-import { inject, Injectable } from '@angular/core';
-import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { DrawingStyle, LngLat } from 'ymaps3';
-import { POLYGONS_STORE } from '../db.config';
-import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { map, pipe, switchMap, tap } from 'rxjs';
-import { patchState, signalStore, type, withComputed, withMethods, withState } from '@ngrx/signals';
+import {inject, Injectable} from '@angular/core';
+import {NgxIndexedDBService} from 'ngx-indexed-db';
+import {DrawingStyle, LngLat} from 'ymaps3';
+import {POLYGONS_STORE} from '../db.config';
+import {rxMethod} from '@ngrx/signals/rxjs-interop';
+import {map, pipe, switchMap, tap} from 'rxjs';
+import {patchState, signalStore, type, withComputed, withMethods, withState} from '@ngrx/signals';
 import {
   entityConfig,
   removeEntity,
@@ -13,11 +13,11 @@ import {
   upsertEntity,
   withEntities
 } from '@ngrx/signals/entities';
-import type { Geometry } from '@yandex/ymaps3-types/imperative/YMapFeature/types';
-import { tapResponse } from '@ngrx/operators';
-import { OpenmeteoDateTypesNames } from '../weather/openmeteo-param-to-name';
-import { OpenMeteoDataTypes } from '../weather/weather-info';
-import { OpenmeteoCurrentParameters, OpenmeteoHourlyParameters } from '../weather/openmeteo-parameters';
+import type {Geometry} from '@yandex/ymaps3-types/imperative/YMapFeature/types';
+import {tapResponse} from '@ngrx/operators';
+import {OpenmeteoDateTypesNames} from '../weather/openmeteo-param-to-name';
+import {OpenMeteoDataTypes} from '../weather/weather-info';
+import {OpenmeteoCurrentParameters, OpenmeteoHourlyParameters} from '../weather/openmeteo-parameters';
 
 export interface IPolygonParametersSetting<T = string> {
   isSet: boolean;
@@ -91,6 +91,11 @@ const store = signalStore(
     setSelectedPolygonId: (id: number) => {
       patchState(store, { selectedPolygonId: id });
     },
+    getObjectById: (id: number) => {
+      const polygons = store.polygonsEntityMap();
+
+      return polygons[id];
+    }
   }))
 )
 

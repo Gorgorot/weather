@@ -1,15 +1,15 @@
 @use "sass:map";
 
 @mixin map-light-theme {
-  --map-button-icon-background: #cfcfcf;
-  --map-button-icon-border: 1px solid #c8c8c8;
-  --map-icon-color: #4a4aff;
-  --map-weather-card-background: #fff;
+  --map-button-icon-background: #ffffff;
+  --map-button-icon-border: 1px solid #dde0ea;
+  --map-icon-color: #5a6aee;
+  --map-weather-card-background: #ffffff;
 }
 
 @mixin map-dark-theme {
-  --map-button-icon-background: #4b4b4b;
-  --map-button-icon-border: 1px solid #4b4b4b;
-  --map-icon-color: #8692ff;
-  --map-weather-card-background: #262626;
+  --map-button-icon-background: #141722;
+  --map-button-icon-border: 1px solid #2a2a3a;
+  --map-icon-color: #6a7aff;
+  --map-weather-card-background: #141722;
 }

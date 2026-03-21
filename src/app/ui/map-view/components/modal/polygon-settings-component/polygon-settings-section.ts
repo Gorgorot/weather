@@ -1,12 +1,12 @@
-import { OpenmeteoDateTypesNames, OpenmeteoParamToNameMap } from '../../../../../weather/openmeteo-param-to-name';
-import { signal } from '@angular/core';
-import { IPolygonParametersSetting } from '../../../../../services/polygons-store.service';
+import {OpenmeteoDateTypesNames, OpenmeteoParamToNameMap} from '../../../../../weather/openmeteo-param-to-name';
+import {signal} from '@angular/core';
+import {IPolygonParametersSetting} from '../../../../../services/polygons-store.service';
 import {
   OpenmeteoDataTypeToParametersList,
   OpenmeteoDataTypeToQueryName,
   OpenmeteoDataTypeToSet,
 } from '../../../../../weather/openmeteo-parameters';
-import { OpenMeteoDataTypes } from '../../../../../weather/weather-info';
+import {OpenMeteoDataTypes} from '../../../../../weather/weather-info';
 
 interface IPolygonSettingsRow<T = string> {
   title: string;
@@ -36,7 +36,6 @@ export class PolygonSettings<T = string> {
       key: key,
       selected: this.keys.includes(key as T)
     }));
-    debugger;
   }
 
   getQuery() {

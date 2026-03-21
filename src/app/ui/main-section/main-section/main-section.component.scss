@@ -13,9 +13,23 @@
 
   .example-sidenav {
     @include mat.sidenav-overrides((
-      container-width: 250px,
+      container-width: 220px,
+      container-background-color: #141722,
     ));
 
     border-radius: 0;
+    border-right: 1px solid #2a2a3a;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+  }
+}
+
+:host-context(html[data-theme='light']) {
+  .example-sidenav {
+    @include mat.sidenav-overrides((
+      container-background-color: #ffffff,
+    ));
+
+    border-right-color: #dde0ea;
+    box-shadow: 4px 0 16px rgba(26, 29, 46, 0.08);
   }
 }

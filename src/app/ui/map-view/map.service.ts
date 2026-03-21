@@ -1,17 +1,17 @@
-import { inject, Injectable, Injector, signal } from '@angular/core';
-import { MAP_API_KEY } from '../../app.module';
-import { filter, map, of, switchMap, take, tap } from 'rxjs';
-import { LngLat, YMapLocationRequest } from 'ymaps3';
-import { MapManager } from '../../drawer/map-manager';
-import { DrawingMode } from '../../drawer/map-drawer.models';
-import { IPolygon, PolygonsStoreService } from '../../services/polygons-store.service';
-import { MapDialogsService } from './map-dialogs.service';
-import { AddPolygonModalComponent } from './components/modal/add-polygon-modal/add-polygon-modal.component';
-import { PolygonsListComponent } from './components/modal/polygons-list-component/polygons-list-component';
-import { OpenMeteoDataTypes, WeatherInfo } from '../../weather/weather-info';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { WeatherApiService } from '../../services/weather-api.service';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import {inject, Injectable, Injector, signal} from '@angular/core';
+import {MAP_API_KEY} from '../../app.module';
+import {filter, map, of, switchMap, take, tap} from 'rxjs';
+import {LngLat, YMapLocationRequest} from 'ymaps3';
+import {MapManager} from '../../drawer/map-manager';
+import {DrawingMode} from '../../drawer/map-drawer.models';
+import {IPolygon, PolygonsStoreService} from '../../services/polygons-store.service';
+import {MapDialogsService} from './map-dialogs.service';
+import {AddPolygonModalComponent} from './components/modal/add-polygon-modal/add-polygon-modal.component';
+import {PolygonsListComponent} from './components/modal/polygons-list-component/polygons-list-component';
+import {OpenMeteoDataTypes, WeatherInfo} from '../../weather/weather-info';
+import {MatBottomSheet} from '@angular/material/bottom-sheet';
+import {WeatherApiService} from '../../services/weather-api.service';
+import {toObservable, toSignal} from '@angular/core/rxjs-interop';
 
 export enum MapApiLoadState {
   RESOLVED = 'RESOLVED',
@@ -187,6 +187,7 @@ export class MapService {
             polygon.name,
             polygon.style?.fill ?? '',
             polygon.id,
+            polygon.center,
             data,
             [
               {

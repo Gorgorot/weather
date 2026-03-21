@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
-import { ObjectsService } from '../../services/objects.service';
-import { ThemeDirective } from '../../directives/theme.directive';
-import { WeatherCardComponent } from '../../ui/weather-card/weather-card.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
-import { QuickObjectInfoComponent } from '../../ui/quick-object-info/quick-object-info.component';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import {ChangeDetectionStrategy, Component, computed, effect, inject} from '@angular/core';
+import {ObjectsService} from '../../services/objects.service';
+import {ThemeDirective} from '../../directives/theme.directive';
+import {WeatherCardComponent} from '../../ui/weather-card/weather-card.component';
+import {ActivatedRoute, Router} from '@angular/router';
+import {toSignal} from '@angular/core/rxjs-interop';
+import {map} from 'rxjs';
+import {QuickObjectInfoComponent} from '../../ui/quick-object-info/quick-object-info.component';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-objects-page',
@@ -28,6 +29,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 export class ObjectsPageComponent {
   private readonly objectsService = inject(ObjectsService);
   private router = inject(Router);
+  private readonly toastr = inject(ToastrService);
   objectWeatherInfo = this.objectsService.objectWeatherInfo;
   loading = this.objectsService.loading;
   currentWeatherInfo = computed(() => {
@@ -52,6 +54,13 @@ export class ObjectsPageComponent {
   }
 
   onCardAdditionalInfo(objectId: number): void {
+    const has = this.objectsService.objectWithIdHasInfoParams(objectId);
+
+    if (!has) {
+      this.toastr.error('Для этого объекта не заданы параметры запроса', 'Ошибка');
+      return;
+    }
+
     this.router.navigate(['/objects'], {
       queryParams: {
         'id': objectId,

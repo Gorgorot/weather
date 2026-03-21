@@ -1,10 +1,10 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { PolygonsStoreService } from './polygons-store.service';
-import { OpenMeteoDataTypes, WeatherInfo } from '../weather/weather-info';
-import { WeatherApiService } from './weather-api.service';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { map, mergeMap, tap, zip } from 'rxjs';
-import { OpenmeteoDataTypeToQueryName } from '../weather/openmeteo-parameters';
+import {inject, Injectable, signal} from '@angular/core';
+import {PolygonsStoreService} from './polygons-store.service';
+import {OpenMeteoDataTypes, WeatherInfo} from '../weather/weather-info';
+import {WeatherApiService} from './weather-api.service';
+import {toObservable, toSignal} from '@angular/core/rxjs-interop';
+import {map, mergeMap, tap, zip} from 'rxjs';
+import {OpenmeteoDataTypeToQueryName} from '../weather/openmeteo-parameters';
 
 @Injectable()
 export class ObjectsService {
@@ -39,6 +39,7 @@ export class ObjectsService {
               item.name,
               item.style?.fill ?? '',
               item.id,
+              item.center,
               weather,
               [
                 {
@@ -62,5 +63,15 @@ export class ObjectsService {
 
   getCurrentObjectWeatherInfo() {
 
+  }
+
+  objectWithIdHasInfoParams(id: number) {
+    const object = this.polygonsStoreService.getObjectById(id);
+
+    if (!object) {
+      throw new Error('No object with id');
+    }
+
+    return object.requestedParameters!.some((param) => param.selected.length > 0);
   }
 }

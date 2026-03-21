@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, input} from '@angular/core';
 import * as echarts from 'echarts/core';
-import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
-import { EChartsCoreOption } from 'echarts';
-import { GaugeChart } from 'echarts/charts';
-import { CanvasRenderer } from 'echarts/renderers';
+import {NgxEchartsDirective, provideEchartsCore} from 'ngx-echarts';
+import {EChartsCoreOption} from 'echarts';
+import {GaugeChart} from 'echarts/charts';
+import {TooltipComponent} from 'echarts/components';
+import {CanvasRenderer} from 'echarts/renderers';
 
-echarts.use([GaugeChart, CanvasRenderer]);
+echarts.use([GaugeChart, TooltipComponent, CanvasRenderer]);
 
 @Component({
   selector: 'app-wind-rose',
@@ -22,6 +23,10 @@ export class WindRoseComponent {
     const dir = this.direction();
 
     return {
+      tooltip: {
+        show: true,
+        formatter: () => `${dir}°`,
+      },
       series: [
         {
           type: 'gauge',
@@ -83,6 +88,7 @@ export class WindRoseComponent {
               borderWidth: 0,
             },
           },
+          detail: {show: false},
           data: [{ value: dir }],
           animation: true,
           animationDuration: 600,

@@ -12,6 +12,7 @@ import {NgxIndexedDBModule} from 'ngx-indexed-db';
 import {dbConfig} from './db.config';
 import {ThemeService} from './services/theme.service';
 import {NavigationComponent} from './components/navigation/navigation-component';
+import {ToastrModule} from 'ngx-toastr';
 
 export const MAP_API_KEY = new InjectionToken('MAP_API_KEY');
 export const DA_DATA_API_KEY = new InjectionToken('DA_DATA_API_KEY');
@@ -25,6 +26,7 @@ export const DA_DATA_API_KEY = new InjectionToken('DA_DATA_API_KEY');
     MainSectionComponent,
     NgxIndexedDBModule.forRoot(dbConfig),
     NavigationComponent,
+    ToastrModule.forRoot({positionClass: 'toast-bottom-left'}),
   ],
   bootstrap: [
     App,

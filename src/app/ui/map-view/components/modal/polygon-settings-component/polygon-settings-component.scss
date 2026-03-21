@@ -1,29 +1,75 @@
+@use '@angular/material' as mat;
+
 :host {
+  @include mat.dialog-overrides((
+    container-color: #141722,
+  ));
+
+  @include mat.expansion-overrides((
+    container-background-color: #1a1d2e,
+    header-text-color: #e0e0e0,
+    header-indicator-color: #6a7aff,
+  ));
+
+  @include mat.list-overrides((
+    list-item-label-text-color: #c0c0d0,
+    list-item-selected-trailing-icon-color: #6a7aff,
+  ));
+
   .properties {
     display: flex;
     flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #1e2030;
 
     &-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid #1e2030;
 
-      &:not(:last-child) {
-        margin-bottom: 6px;
+      &:last-child {
+        border-bottom: none;
       }
     }
 
     &-label {
-      font-size: 16px
+      font-size: 12px;
+      font-weight: 600;
+      color: #8a8a9a;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
     &-value {
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #c0c0d0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .color-swatch {
+      width: 48px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
   }
 
   .parameters-title {
-    font-size: 20px;
-    margin-bottom: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #8a8a9a;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+
+  .sections {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 }
