@@ -10,5 +10,13 @@ export const ICONS = [
   {
     name: 'BarometerFill',
     fileName: 'assets/icons/BarometerFill.svg',
+  },
+  {
+    name: 'DustWind',
+    fileName: 'assets/icons/DustWind.svg',
+  },
+  {
+    name: 'WindSock',
+    fileName: 'assets/icons/WindSock.svg',
   }
-]
+];

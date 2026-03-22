@@ -5,13 +5,15 @@
     <mat-list-item>
       {{ item.name }}
       <div class="list-item-actions" matListItemMeta>
-        <button (click)="onListItemClick(item, PolygonsListAction.FOCUS)" matIconButton>
+        <button (click)="onListItemClick(item, PolygonsListAction.FOCUS)" matIconButton matTooltip="Перейти к объекту">
           <mat-icon>search</mat-icon>
         </button>
-        <button (click)="onListItemClick(item, PolygonsListAction.EDIT)" matIconButton>
+        <button (click)="onListItemClick(item, PolygonsListAction.EDIT)" matIconButton matTooltip="Настройки"
+                matTooltipPosition="above">
           <mat-icon>settings</mat-icon>
         </button>
-        <button (click)="onListItemClick(item, PolygonsListAction.REMOVE)" matIconButton>
+        <button (click)="onListItemClick(item, PolygonsListAction.REMOVE)" matIconButton matTooltip="Удалить"
+                matTooltipPosition="above">
           <mat-icon>remove</mat-icon>
         </button>
       </div>

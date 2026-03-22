@@ -5,19 +5,19 @@
   <h1 class="page-title">Объекты</h1>
 
   <section class="content">
-    @if (loading()) {
-      <div class="loader">
-        <mat-spinner diameter="48"/>
-      </div>
-    } @else {
-      <div class="objects-list">
-        @for (item of _objectWeatherInfo; track item.objectId) {
-          <app-weather-card (additionalInfo)="onCardAdditionalInfo($event)" [weatherInfo]="item"/>
-        }
-      </div>
-    }
+    <div class="objects-list">
+      @for (item of _objectWeatherInfo; track item.objectId) {
+        <app-weather-card (additionalInfo)="onCardAdditionalInfo($event)" [weatherInfo]="item"/>
+      }
+    </div>
   </section>
 </section>
+
+@if (loading()) {
+  <div class="loader-overlay">
+    <mat-spinner diameter="48"/>
+  </div>
+}
 
 @if (_currentWeatherInfo) {
   <div class="quick-statistic-wrapper">

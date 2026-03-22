@@ -1,4 +1,4 @@
-import {OpenMeteoDataTypes} from './weather-info';
+import { OpenMeteoDataTypes } from './weather-info';
 
 export enum OpenmeteoHourlyParameters {
   temperature_2m = 'temperature_2m',
@@ -6,9 +6,6 @@ export enum OpenmeteoHourlyParameters {
   dew_point_2m = 'dew_point_2m',
   apparent_temperature = 'apparent_temperature',
   precipitation_probability = 'precipitation_probability',
-  rain = 'rain',
-  showers = 'showers',
-  snowfall = 'snowfall',
   visibility = 'visibility',
   wind_speed_10m = 'wind_speed_10m',
 }
@@ -20,11 +17,6 @@ export enum OpenmeteoCurrentParameters {
   temperature_2m = 'temperature_2m',
   relative_humidity_2m = 'relative_humidity_2m',
   apparent_temperature = 'apparent_temperature',
-  is_day = 'is_day',
-  precipitation = 'precipitation',
-  rain = 'rain',
-  snowfall = 'snowfall',
-  showers = 'showers',
   pressure_msl = 'pressure_msl',
   wind_direction_10m = 'wind_direction_10m',
   wind_speed_10m = 'wind_speed_10m',
@@ -43,7 +35,10 @@ export const OpenmeteoDailyParametersList = Object.keys(OpenmeteoDailyParameters
 export const OpenmeteoParametersIconsMap = <Record<OpenmeteoCurrentParameters | OpenmeteoHourlyParameters | string, string>>{
   [OpenmeteoCurrentParameters.temperature_2m]: 'ThermometerCelsiusFill',
   [OpenmeteoCurrentParameters.relative_humidity_2m]: 'HumidityFill',
-  [OpenmeteoCurrentParameters.pressure_msl]: 'BarometerFill'
+  [OpenmeteoCurrentParameters.pressure_msl]: 'BarometerFill',
+  [OpenmeteoCurrentParameters.apparent_temperature]: 'ThermometerCelsiusFill',
+  [OpenmeteoCurrentParameters.wind_direction_10m]: 'DustWind',
+  [OpenmeteoCurrentParameters.wind_speed_10m]: 'WindSock',
 }
 
 export const OpenmeteoDataTypeToQueryName = <Record<OpenMeteoDataTypes, string>>{
@@ -66,8 +61,11 @@ export const OpenmeteoDataTypeToParametersList = <Record<OpenMeteoDataTypes, str
 
 export const OPENMETEO_PARAMS_UNITS_MAP: Record<OpenmeteoHourlyParameters | OpenmeteoCurrentParameters | string, string> = {
   [OpenmeteoCurrentParameters.temperature_2m]: '°C',
+  [OpenmeteoCurrentParameters.apparent_temperature]: '°C',
   [OpenmeteoCurrentParameters.relative_humidity_2m]: '%',
   [OpenmeteoCurrentParameters.pressure_msl]: 'мм.рт.ст.',
+  [OpenmeteoCurrentParameters.wind_speed_10m]: 'м/c',
+  [OpenmeteoCurrentParameters.wind_direction_10m]: '°',
 
   [OpenmeteoDailyParameters.temperature_2m_min]: '°C',
   [OpenmeteoDailyParameters.temperature_2m_max]: '°C',

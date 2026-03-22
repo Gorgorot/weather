@@ -26,11 +26,15 @@
     border-bottom: 1px solid #2a2a3a;
   }
 
-  .loader {
+  .loader-overlay {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-grow: 1;
+    background: rgba(14, 17, 32, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 10;
   }
 
   .objects-list {
@@ -54,6 +58,13 @@
     overflow-y: auto;
     overflow-x: hidden;
     box-shadow: -4px 0 24px rgba(0, 0, 0, 0.4);
+    min-width: 500px;
+    max-width: 500px;
+
+    @media screen and (max-width: 1920px) {
+      min-width: 400px;
+      max-width: 400px;
+    }
   }
 
   &.light-theme {
@@ -68,6 +79,10 @@
       background: var(--lt-surface);
       border-left-color: var(--lt-border);
       box-shadow: -4px 0 24px rgba(26, 29, 46, 0.08);
+    }
+
+    .loader-overlay {
+      background: rgba(255, 255, 255, 0.7);
     }
   }
 }

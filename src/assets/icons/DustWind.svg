@@ -1,0 +1,42 @@
+<svg height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><title>Dust-wind SVG Icon</title>
+  <defs>
+    <symbol id="meteoconsDustWind0" viewBox="0 0 342 234">
+      <path d="M264.2 21.3A40 40 0 1 1 293 89H9" fill="none" stroke="#e2e8f0" stroke-dasharray="148" stroke-linecap="round"
+            stroke-miterlimit="10" stroke-width="18">
+        <animate attributeName="stroke-dashoffset" dur="6s" repeatCount="indefinite" values="0; 2960"/>
+      </path>
+      <path d="M148.2 212.7A40 40 0 1 0 177 145H9" fill="none" stroke="#e2e8f0" stroke-dasharray="110" stroke-linecap="round"
+            stroke-miterlimit="10" stroke-width="18">
+        <animate attributeName="stroke-dashoffset" dur="6s" repeatCount="indefinite" values="0; 1540"/>
+      </path>
+    </symbol>
+  </defs>
+  <g opacity="0">
+    <circle cx="96" cy="196" fill="#fde68a" r="12"/>
+    <circle cx="222" cy="256" fill="#fde68a" r="12"/>
+    <circle cx="172" cy="316" fill="#fde68a" r="12"/>
+    <animateTransform additive="sum" attributeName="transform" begin="1s; x1.end+1.17s" dur=".83s"
+                      id="meteoconsDustWind1" type="translate" values="-24 0; 24 0"/>
+    <animate attributeName="opacity" begin="1s; y1.end+1.17s" dur=".83s" id="meteoconsDustWind2"
+             keyTimes="0; .17; .83; 1" values="0; 1; 1; 0"/>
+  </g>
+  <g opacity="0">
+    <circle cx="180" cy="196" fill="#fde68a" r="12"/>
+    <circle cx="306" cy="256" fill="#fde68a" r="12"/>
+    <circle cx="256" cy="316" fill="#fde68a" r="12"/>
+    <animateTransform additive="sum" attributeName="transform" begin=".5s; x2.end+1.17s" dur=".83s"
+                      id="meteoconsDustWind3" type="translate" values="-24 0; 24 0"/>
+    <animate attributeName="opacity" begin=".5s; y2.end+1.17s" dur=".83s" id="meteoconsDustWind4"
+             keyTimes="0; .17; .83; 1" values="0; 1; 1; 0"/>
+  </g>
+  <g opacity="0">
+    <circle cx="264" cy="196" fill="#fde68a" r="12"/>
+    <circle cx="390" cy="256" fill="#fde68a" r="12"/>
+    <circle cx="340" cy="316" fill="#fde68a" r="12"/>
+    <animateTransform additive="sum" attributeName="transform" begin="0s; x3.end+1.17s" dur=".83s"
+                      id="meteoconsDustWind5" type="translate" values="-24 0; 24 0"/>
+    <animate attributeName="opacity" begin="0s; y3.end+1.17s" dur=".83s" id="meteoconsDustWind6"
+             keyTimes="0; .17; .83; 1" values="0; 1; 1; 0"/>
+  </g>
+  <use height="234" href="#meteoconsDustWind0" transform="translate(86 139)" width="342"/>
+</svg>

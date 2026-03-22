@@ -1,11 +1,13 @@
-import {inject, Injectable, signal} from '@angular/core';
-import {PolygonsStoreService} from './polygons-store.service';
-import {OpenMeteoDataTypes, WeatherInfo} from '../weather/weather-info';
-import {WeatherApiService} from './weather-api.service';
-import {toObservable, toSignal} from '@angular/core/rxjs-interop';
-import {map, mergeMap, tap, zip} from 'rxjs';
-import {OpenmeteoDataTypeToQueryName} from '../weather/openmeteo-parameters';
+import { inject, Injectable, signal } from '@angular/core';
+import { PolygonsStoreService } from './polygons-store.service';
+import { OpenMeteoDataTypes, WeatherInfo } from '../weather/weather-info';
+import { WeatherApiService } from './weather-api.service';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { map, mergeMap, tap, zip } from 'rxjs';
+import { OpenmeteoDataTypeToQueryName } from '../weather/openmeteo-parameters';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Injectable()
 export class ObjectsService {
   private readonly polygonsStoreService = inject(PolygonsStoreService);
@@ -58,6 +60,7 @@ export class ObjectsService {
             );
           })
         }),
+        untilDestroyed(this),
       )
   );
 
@@ -65,7 +68,7 @@ export class ObjectsService {
 
   }
 
-  objectWithIdHasInfoParams(id: number) {
+  objectWithIdHasInfoParams(id: number): boolean {
     const object = this.polygonsStoreService.getObjectById(id);
 
     if (!object) {
