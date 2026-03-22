@@ -3,7 +3,7 @@ import { ObjectsService } from '../../services/objects.service';
 import { PolygonsStoreService } from '../../services/polygons-store.service';
 import { ThemeDirective } from '../../directives/theme.directive';
 import { WeatherCardComponent } from '../../ui/weather-card/weather-card.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { QuickObjectInfoComponent } from '../../ui/quick-object-info/quick-object-info.component';
@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
     WeatherCardComponent,
     QuickObjectInfoComponent,
     MatProgressSpinner,
+    RouterLink,
   ],
   templateUrl: './objects-page.component.html',
   styleUrl: './objects-page.component.scss',
@@ -29,24 +30,31 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ObjectsPageComponent {
   private readonly objectsService = inject(ObjectsService);
-  weatherLoadFailed = this.objectsService.weatherLoadFailed;
+  displayEmptyState = computed(() => {
+    const objects = this.objectsService.objects();
+    const isLoading = this.loading();
+
+    return !isLoading && !objects.length;
+  })
   private router = inject(Router);
   private readonly toastr = inject(ToastrService);
+  private readonly polygonsStoreService = inject(PolygonsStoreService);
+
+  weatherLoadFailed = this.objectsService.weatherLoadFailed;
   objectWeatherInfo = this.objectsService.objectWeatherInfo;
   loading = this.objectsService.loading;
-  private readonly polygonsStoreService = inject(PolygonsStoreService);
   currentWeatherInfo = computed(() => {
     const currentObjectId = this.currentObjectId();
     const objectWeatherInfo = this.objectWeatherInfo();
 
     return objectWeatherInfo?.find(info => info.objectId === currentObjectId);
   });
-  private readonly activatedRoute = inject(ActivatedRoute);
   currentObjectId = toSignal(
     this.activatedRoute.queryParams.pipe(
       map(data => Number(data['id'])),
     )
   );
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   constructor() {
     effect(() => {

@@ -1,17 +1,25 @@
 @let _objectWeatherInfo = objectWeatherInfo();
 @let _currentWeatherInfo = currentWeatherInfo();
+@let _displayEmptyState = displayEmptyState();
 
 <section class="content-wrapper">
-  <h1 class="page-title">Объекты</h1>
+  @if (!_displayEmptyState) {
+    <h1 class="page-title">Объекты</h1>
 
-  <section class="content">
-    <div class="objects-list">
-      @for (item of _objectWeatherInfo; track item.objectId) {
-        <app-weather-card (additionalInfo)="onCardAdditionalInfo($event)" (delete)="onDeleteObject($event)"
-                          [hideDetails]="weatherLoadFailed()" [weatherInfo]="item"/>
-      }
+    <section class="content">
+      <div class="objects-list">
+        @for (item of _objectWeatherInfo; track item.objectId) {
+          <app-weather-card (additionalInfo)="onCardAdditionalInfo($event)" (delete)="onDeleteObject($event)"
+                            [hideDetails]="weatherLoadFailed()" [weatherInfo]="item"/>
+        }
+      </div>
+    </section>
+  } @else {
+    <div class="empty-state">
+      <p class="empty-state__text">Список пуст. Добавьте <b>объект</b> на <a class="empty-state__link"
+                                                                             routerLink="/map">карте</a></p>
     </div>
-  </section>
+  }
 </section>
 
 @if (loading()) {
