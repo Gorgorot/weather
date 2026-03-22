@@ -1,13 +1,14 @@
-import {ChangeDetectionStrategy, Component, computed, effect, inject} from '@angular/core';
-import {ObjectsService} from '../../services/objects.service';
-import {ThemeDirective} from '../../directives/theme.directive';
-import {WeatherCardComponent} from '../../ui/weather-card/weather-card.component';
-import {ActivatedRoute, Router} from '@angular/router';
-import {toSignal} from '@angular/core/rxjs-interop';
-import {map} from 'rxjs';
-import {QuickObjectInfoComponent} from '../../ui/quick-object-info/quick-object-info.component';
-import {MatProgressSpinner} from '@angular/material/progress-spinner';
-import {ToastrService} from 'ngx-toastr';
+import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
+import { ObjectsService } from '../../services/objects.service';
+import { PolygonsStoreService } from '../../services/polygons-store.service';
+import { ThemeDirective } from '../../directives/theme.directive';
+import { WeatherCardComponent } from '../../ui/weather-card/weather-card.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
+import { QuickObjectInfoComponent } from '../../ui/quick-object-info/quick-object-info.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-objects-page',
@@ -28,10 +29,12 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class ObjectsPageComponent {
   private readonly objectsService = inject(ObjectsService);
+  weatherLoadFailed = this.objectsService.weatherLoadFailed;
   private router = inject(Router);
   private readonly toastr = inject(ToastrService);
   objectWeatherInfo = this.objectsService.objectWeatherInfo;
   loading = this.objectsService.loading;
+  private readonly polygonsStoreService = inject(PolygonsStoreService);
   currentWeatherInfo = computed(() => {
     const currentObjectId = this.currentObjectId();
     const objectWeatherInfo = this.objectWeatherInfo();
@@ -67,6 +70,10 @@ export class ObjectsPageComponent {
         'id': objectId,
       },
     });
+  }
+
+  onDeleteObject(objectId: number): void {
+    this.polygonsStoreService.remove(objectId);
   }
 
   onCloseQuickInfo() {

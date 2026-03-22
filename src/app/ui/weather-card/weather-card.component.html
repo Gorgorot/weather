@@ -21,9 +21,11 @@
     </div>
 
     <div class="weather-card__actions">
-      <button (click)="additionalInfo.emit(_weatherInfo.objectId)" class="button-primary button-sm" mat-flat-button>
-        Подробнее
-      </button>
+      @if (!hideDetails()) {
+        <button (click)="additionalInfo.emit(_weatherInfo.objectId)" class="button-primary button-sm" mat-flat-button>
+          Подробнее
+        </button>
+      }
       <button (click)="delete.emit(_weatherInfo.objectId)" class="button-warn button-sm" mat-flat-button>Удалить
       </button>
     </div>

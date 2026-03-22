@@ -7,7 +7,8 @@
   <section class="content">
     <div class="objects-list">
       @for (item of _objectWeatherInfo; track item.objectId) {
-        <app-weather-card (additionalInfo)="onCardAdditionalInfo($event)" [weatherInfo]="item"/>
+        <app-weather-card (additionalInfo)="onCardAdditionalInfo($event)" (delete)="onDeleteObject($event)"
+                          [hideDetails]="weatherLoadFailed()" [weatherInfo]="item"/>
       }
     </div>
   </section>

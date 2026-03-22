@@ -3,22 +3,28 @@ import { PolygonsStoreService } from './polygons-store.service';
 import { OpenMeteoDataTypes, WeatherInfo } from '../weather/weather-info';
 import { WeatherApiService } from './weather-api.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { map, mergeMap, tap, zip } from 'rxjs';
+import { catchError, map, mergeMap, of, tap, timeout, zip } from 'rxjs';
 import { OpenmeteoDataTypeToQueryName } from '../weather/openmeteo-parameters';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { ToastrService } from 'ngx-toastr';
 
 @UntilDestroy()
 @Injectable()
 export class ObjectsService {
   private readonly polygonsStoreService = inject(PolygonsStoreService);
   private readonly weatherApiService = inject(WeatherApiService);
+  weatherLoadFailed = signal(false);
 
   objects = this.polygonsStoreService.allPolygons;
   loading = signal(true);
+  private readonly toastr = inject(ToastrService);
   objectWeatherInfo = toSignal(
     toObservable(this.objects)
       .pipe(
-        tap(() => this.loading.set(true)),
+        tap(() => {
+          this.loading.set(true);
+          this.weatherLoadFailed.set(false);
+        }),
         mergeMap(objects => {
           const queries = objects.map(item => {
             const req = item.requestedParameters!.reduce((acc, value) => {
@@ -30,31 +36,41 @@ export class ObjectsService {
             return this.weatherApiService.fetch(item.center, req);
           });
 
-          return zip(queries).pipe(map(data => ({ weatherData: data, objects, })))
+          return zip(queries).pipe(
+            timeout(5000),
+            catchError(() => {
+              this.toastr.error('Не удалось получить информацию о погоде');
+              this.loading.set(false);
+              this.weatherLoadFailed.set(true);
+
+              return of(null);
+            }),
+            map(data => ({ weatherData: data, objects, })),
+          )
         }),
         tap(() => this.loading.set(false)),
         map(data => {
-          return data.weatherData.map((weather, index) => {
-            const item = data.objects[index];
+          return data.objects.map((object, index) => {
+            const weatherData = data.weatherData ? data.weatherData[index] : null;
 
             return new WeatherInfo(
-              item.name,
-              item.style?.fill ?? '',
-              item.id,
-              item.center,
-              weather,
+              object.name,
+              object.style?.fill ?? '',
+              object.id,
+              object.center,
+              weatherData,
               [
                 {
                   type: OpenMeteoDataTypes.CURRENT,
-                  keys: item.requestedParameters!.find(v => v.type === OpenMeteoDataTypes.CURRENT)!.selected,
+                  keys: object.requestedParameters!.find(v => v.type === OpenMeteoDataTypes.CURRENT)!.selected,
                 },
                 {
                   type: OpenMeteoDataTypes.DAILY,
-                  keys: item.requestedParameters!.find(v => v.type === OpenMeteoDataTypes.DAILY)!.selected,
+                  keys: object.requestedParameters!.find(v => v.type === OpenMeteoDataTypes.DAILY)!.selected,
                 },
                 {
                   type: OpenMeteoDataTypes.HOURLY,
-                  keys: item.requestedParameters!.find(v => v.type === OpenMeteoDataTypes.HOURLY)!.selected,
+                  keys: object.requestedParameters!.find(v => v.type === OpenMeteoDataTypes.HOURLY)!.selected,
                 }
               ],
             );

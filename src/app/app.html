@@ -1,5 +1,5 @@
 <app-header [title]="appName" (toggleSideNav)="contentRef.toggleSidenav()"></app-header>
 <app-main-section #contentRef class="main-section">
-  <app-navigation ngProjectAs="nav-content"/>
+  <app-navigation [collapsed]="contentRef.collapsed()" ngProjectAs="nav-content"/>
   <router-outlet ngProjectAs="main-content"/>
 </app-main-section>

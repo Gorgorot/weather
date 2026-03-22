@@ -1,8 +1,8 @@
-import {WeatherApiResponse} from '@openmeteo/sdk/weather-api-response';
-import {OpenMeteoCurrent} from './openmeteo-current';
-import {OpenmeteoDaily} from './openmeteo-dailty';
-import {OpenmeteoHourly} from './openmeteo-hourly';
-import {LngLat} from 'ymaps3';
+import { WeatherApiResponse } from '@openmeteo/sdk/weather-api-response';
+import { OpenMeteoCurrent } from './openmeteo-current';
+import { OpenmeteoDaily } from './openmeteo-dailty';
+import { OpenmeteoHourly } from './openmeteo-hourly';
+import { LngLat } from 'ymaps3';
 
 export enum OpenMeteoDataTypes {
   CURRENT = 'CURRENT',
@@ -36,13 +36,15 @@ export class WeatherInfo {
   objectId: number = 0;
   center: LngLat = [0, 0];
 
-  constructor(title: string, color: string, objectId: number, center: LngLat, openmeteoData: WeatherApiResponse, allowedTypes: IOpenMeteoSelectedData[]) {
+  constructor(title: string, color: string, objectId: number, center: LngLat, openmeteoData: WeatherApiResponse | null, allowedTypes: IOpenMeteoSelectedData[]) {
     this.title = title;
     this.color = color;
     this.objectId = objectId;
     this.center = center;
 
-    this.init(openmeteoData, allowedTypes);
+    if (openmeteoData) {
+      this.init(openmeteoData, allowedTypes);
+    }
   }
 
   private init(openmeteoData: WeatherApiResponse, allowedTypes: IOpenMeteoSelectedData[]): void {

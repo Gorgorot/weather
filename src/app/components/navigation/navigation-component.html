@@ -1,5 +1,7 @@
 @for (link of links; track link.path) {
-  <a class="link" [routerLink]="link.path" routerLinkActive="link-active">
+  <a [class.link--collapsed]="collapsed()" [matTooltipDisabled]="!collapsed()"
+     [matTooltip]="link.text" [routerLink]="link.path"
+     class="link" matTooltipPosition="right" routerLinkActive="link-active">
     <mat-icon class="link-icon">{{ link.icon }}</mat-icon>
     <div class="link-description">
       <span class="link-text">{{ link.text }}</span>

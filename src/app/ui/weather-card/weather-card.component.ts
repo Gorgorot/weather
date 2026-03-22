@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, input, output} from '@angular/core';
-import {WeatherInfo} from '../../weather/weather-info';
-import {ThemeDirective} from '../../directives/theme.directive';
-import {MatButton} from '@angular/material/button';
-import {DecimalPipe} from '@angular/common';
-import {MatTooltip} from '@angular/material/tooltip';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { WeatherInfo } from '../../weather/weather-info';
+import { ThemeDirective } from '../../directives/theme.directive';
+import { MatButton } from '@angular/material/button';
+import { DecimalPipe } from '@angular/common';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-weather-card',
@@ -21,6 +21,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 })
 export class WeatherCardComponent {
   weatherInfo = input.required<WeatherInfo>();
+  hideDetails = input(false);
   additionalInfo = output<number>();
   delete = output<number>();
 }

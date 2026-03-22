@@ -3,15 +3,12 @@
 :host {
   flex: 1 1 auto;
 
-  .example-container {
+  .drawer-container {
     height: 100%;
+    background: #0e1120;
   }
 
-  .example-sidenav-content {
-    height: 100%;
-  }
-
-  .example-sidenav {
+  .navigation-container {
     @include mat.sidenav-overrides((
       container-width: 220px,
       container-background-color: #141722,
@@ -20,16 +17,32 @@
     border-radius: 0;
     border-right: 1px solid #2a2a3a;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+    transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+
+    ::ng-deep .mat-drawer-inner-container {
+      overflow-x: hidden;
+    }
+
+    &.collapsed {
+      @include mat.sidenav-overrides((
+        container-width: 64px,
+      ));
+    }
   }
-}
 
-:host-context(html[data-theme='light']) {
-  .example-sidenav {
-    @include mat.sidenav-overrides((
-      container-background-color: #ffffff,
-    ));
+  .content-container {
+    height: 100%;
+  }
 
-    border-right-color: #dde0ea;
-    box-shadow: 4px 0 16px rgba(26, 29, 46, 0.08);
+  &.light-theme {
+    .navigation-container {
+      @include mat.sidenav-overrides((
+        container-background-color: #ffffff,
+      ));
+
+      border-right-color: #dde0ea;
+      box-shadow: 4px 0 16px rgba(26, 29, 46, 0.08);
+    }
   }
 }

@@ -1,5 +1,6 @@
-import {Component, OnInit, viewChild} from '@angular/core';
-import {MatDrawer, MatDrawerContainer} from '@angular/material/sidenav';
+import { Component, signal } from '@angular/core';
+import { MatDrawer, MatDrawerContainer } from '@angular/material/sidenav';
+import { ThemeDirective } from '../../../directives/theme.directive';
 
 @Component({
   selector: 'app-main-section',
@@ -9,14 +10,14 @@ import {MatDrawer, MatDrawerContainer} from '@angular/material/sidenav';
   ],
   templateUrl: './main-section.component.html',
   styleUrl: './main-section.component.scss',
+  hostDirectives: [
+    ThemeDirective,
+  ]
 })
-export class MainSectionComponent implements OnInit {
-  drawer = viewChild<MatDrawer>('drawer');
-
-  ngOnInit() {
-  }
+export class MainSectionComponent {
+  collapsed = signal(false);
 
   toggleSidenav() {
-    this.drawer()?.toggle();
+    this.collapsed.update(v => !v);
   }
 }

@@ -1,18 +1,26 @@
-import {Component} from '@angular/core';
-import {RouterLink, RouterLinkActive} from '@angular/router';
-import {MatIcon} from '@angular/material/icon';
+import { Component, input } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ThemeDirective } from '../../directives/theme.directive';
 
 @Component({
   selector: 'app-navigation',
   imports: [
     RouterLink,
     MatIcon,
-    RouterLinkActive
+    RouterLinkActive,
+    MatTooltip
+  ],
+  hostDirectives: [
+    ThemeDirective,
   ],
   templateUrl: './navigation-component.html',
   styleUrl: './navigation-component.scss',
 })
 export class NavigationComponent {
+  collapsed = input(false);
+
   links = [
     {
       text: 'Карта',
