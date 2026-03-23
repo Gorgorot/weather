@@ -1,7 +1,4 @@
 import { Routes } from '@angular/router';
-import { MapPageComponent } from './pages/map-page-component/map-page.component';
-import { ObjectsPageComponent } from './pages/objects-page/objects-page.component';
-import { HourlyPageComponent } from './pages/hourly-page/hourly-page.component';
 
 export const routes: Routes = [
   {
@@ -11,14 +8,14 @@ export const routes: Routes = [
   },
   {
     path: 'map',
-    component: MapPageComponent,
+    loadChildren: () => import('./features/map/map.routes').then(m => m.MAP_ROUTES),
   },
   {
     path: 'objects',
-    component: ObjectsPageComponent,
+    loadChildren: () => import('./features/objects/objects.routes').then(m => m.OBJECTS_ROUTES),
   },
   {
     path: 'hourly',
-    component: HourlyPageComponent,
+    loadChildren: () => import('./features/hourly/hourly.routes').then(m => m.HOURLY_ROUTES),
   },
 ];
