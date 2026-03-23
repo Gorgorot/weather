@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { WeatherInfo } from '../../../weather/models/weather-info';
+import { WeatherInfo } from '@features/weather/models/weather-info';
 import { MatList, MatListItem } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';

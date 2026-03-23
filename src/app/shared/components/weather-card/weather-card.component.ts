@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
-import { WeatherInfo } from '../../../features/weather/models/weather-info';
-import { ThemeDirective } from '../../../core/directives/theme.directive';
+import { WeatherInfo } from '@features/weather/models/weather-info';
+import { ThemeDirective } from '@core/directives/theme.directive';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { DecimalPipe } from '@angular/common';

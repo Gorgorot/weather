@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { DA_DATA_API_KEY } from '../../../core/tokens.provider';
+import { DA_DATA_API_KEY } from '@core/tokens.provider';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 

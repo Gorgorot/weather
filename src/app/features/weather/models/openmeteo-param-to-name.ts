@@ -3,7 +3,7 @@ import {
   OpenmeteoDailyParameters,
   OpenmeteoHourlyParameters
 } from './openmeteo-parameters';
-import { OpenMeteoDataTypes } from './weather-info';
+import { OpenMeteoDataTypes } from './openmeteo-data-types';
 
 export const OpenmeteoDateTypesNames = <Record<OpenMeteoDataTypes, string>>{
   [OpenMeteoDataTypes.DAILY]: 'По дням',

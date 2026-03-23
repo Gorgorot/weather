@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
 import { RouterOutlet } from '@angular/router';
-import { MainSectionComponent } from './layout/main-section/main-section.component';
-import { NavigationComponent } from './layout/navigation/navigation-component';
-import { HeaderComponent } from './layout/header/header.component';
+import { MainSectionComponent } from '@layout/main-section/main-section.component';
+import { NavigationComponent } from '@layout/navigation/navigation-component';
+import { HeaderComponent } from '@layout/header/header.component';
 
 @Component({
   selector: 'app-root',

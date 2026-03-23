@@ -1,12 +1,12 @@
-import { OpenmeteoDateTypesNames, OpenmeteoParamToNameMap } from '../../../../weather/models/openmeteo-param-to-name';
+import { OpenmeteoDateTypesNames, OpenmeteoParamToNameMap } from '@features/weather/models/openmeteo-param-to-name';
 import { signal } from '@angular/core';
-import { IPolygonParametersSetting } from '../../../../weather/services/polygons-store.service';
+import { IPolygonParametersSetting } from '@features/weather/services/polygons-store.service';
 import {
   OpenmeteoDataTypeToParametersList,
   OpenmeteoDataTypeToQueryName,
   OpenmeteoDataTypeToSet,
-} from '../../../../weather/models/openmeteo-parameters';
-import { OpenMeteoDataTypes } from '../../../../weather/models/weather-info';
+} from '@features/weather/models/openmeteo-parameters';
+import { OpenMeteoDataTypes } from '@features/weather/models/openmeteo-data-types';
 
 interface IPolygonSettingsRow<T = string> {
   title: string;

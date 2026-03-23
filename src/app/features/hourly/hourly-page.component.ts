@@ -10,10 +10,11 @@ import { BarChart, LineChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { ObjectsService } from '../weather/services/objects.service';
-import { ThemeDirective } from '../../core/directives/theme.directive';
-import { IOpenMeteoRowInfoParam, OpenMeteoDataTypes, WeatherInfo } from '../weather/models/weather-info';
-import { OpenmeteoHourly } from '../weather/models/openmeteo-hourly';
+import { ObjectsService } from '@features/weather/services/objects.service';
+import { ThemeDirective } from '@core/directives/theme.directive';
+import { IOpenMeteoRowInfoParam, WeatherInfo } from '@features/weather/models/weather-info';
+import { OpenmeteoHourly } from '@features/weather/models/openmeteo-hourly';
+import { OpenMeteoDataTypes } from '@features/weather/models/openmeteo-data-types';
 
 echarts.use([
   TitleComponent,

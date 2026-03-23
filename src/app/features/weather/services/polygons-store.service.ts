@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { DrawingStyle, LngLat } from 'ymaps3';
-import { POLYGONS_STORE } from '../../../core/db.config';
+import { POLYGONS_STORE } from '@core/db.config';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { map, pipe, switchMap, tap } from 'rxjs';
 import { patchState, signalStore, type, withComputed, withMethods, withState } from '@ngrx/signals';
@@ -16,8 +16,8 @@ import {
 import type { Geometry } from '@yandex/ymaps3-types/imperative/YMapFeature/types';
 import { tapResponse } from '@ngrx/operators';
 import { OpenmeteoDateTypesNames } from '../models/openmeteo-param-to-name';
-import { OpenMeteoDataTypes } from '../models/weather-info';
 import { OpenmeteoCurrentParameters, OpenmeteoHourlyParameters } from '../models/openmeteo-parameters';
+import { OpenMeteoDataTypes } from '../models/openmeteo-data-types';
 
 export interface IPolygonParametersSetting<T = string> {
   isSet: boolean;

@@ -3,7 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
-import { ThemeDirective } from '../../core/directives/theme.directive';
+import { ThemeDirective } from '@core/directives/theme.directive';
 
 @Component({
   selector: 'app-navigation',

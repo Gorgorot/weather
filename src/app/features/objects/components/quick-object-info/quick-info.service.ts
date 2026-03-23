@@ -1,9 +1,10 @@
 import { Injectable, signal } from '@angular/core';
-import { IOpenMeteoRowInfoParam, OpenMeteoDataTypes, WeatherInfo } from '../../../weather/models/weather-info';
-import { OpenmeteoCurrentParameters } from '../../../weather/models/openmeteo-parameters';
+import { IOpenMeteoRowInfoParam, WeatherInfo } from '@features/weather/models/weather-info';
+import { OpenmeteoCurrentParameters } from '@features/weather/models/openmeteo-parameters';
 import { EChartsCoreOption } from 'echarts';
-import { OpenmeteoDaily } from '../../../weather/models/openmeteo-dailty';
+import { OpenmeteoDaily } from '@features/weather/models/openmeteo-dailty';
 import * as echarts from 'echarts/core';
+import { OpenMeteoDataTypes } from '@features/weather/models/openmeteo-data-types';
 
 interface ChartSet {
   chartData: EChartsCoreOption;

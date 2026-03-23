@@ -1,7 +1,7 @@
 import { DomEvent, DomEventHandlerObject } from '@yandex/ymaps3-types/imperative/YMapListener';
 import { MapDrawerBaseExecutor } from './map-drawer.models';
 import type { DrawingStyle, YMapFeatureProps } from 'ymaps3';
-import { MathHelper } from '../../../shared/utils/math-helper';
+import { MathHelper } from '@shared/utils/math-helper';
 
 export class LineDrawer extends MapDrawerBaseExecutor {
   override isRemovable = true;

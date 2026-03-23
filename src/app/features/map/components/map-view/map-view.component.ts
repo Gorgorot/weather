@@ -12,7 +12,7 @@ import {
 import { MapApiLoadState, MapService } from '../../services/map.service';
 import { DrawingMode } from '../../drawing/map-drawer.models';
 import { IDaDataSuggestion } from '../../services/da-data.service';
-import { Themes, ThemeService } from '../../../../core/services/theme.service';
+import { Themes, ThemeService } from '@core/services/theme.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -52,13 +52,13 @@ export class MapViewComponent implements OnInit, OnDestroy {
   mapSize = signal({ width: 100, height: 100 });
   weatherInfo = this.mapService.weatherInfo;
   selectedDrawingMode = this.mapService.selectedDrawingMode;
-  cursorPos = signal({x: 0, y: 0});
+  cursorPos = signal({ x: 0, y: 0 });
   cursorAnimating = signal(false);
 
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
     const rect = this.element.nativeElement.getBoundingClientRect();
-    this.cursorPos.set({x: event.clientX - rect.left, y: event.clientY - rect.top});
+    this.cursorPos.set({ x: event.clientX - rect.left, y: event.clientY - rect.top });
   }
 
   @HostListener('click')

@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { ThemeDirective } from '../../core/directives/theme.directive';
+import { ThemeDirective } from '@core/directives/theme.directive';
 
 @Component({
   selector: 'app-main-section',

@@ -19,9 +19,22 @@
       "./node_modules/@types",
       "./node_modules/@yandex/ymaps3-types"
     ],
+    "baseUrl": ".",
     "paths": {
       "ymaps3": [
         "./node_modules/@yandex/ymaps3-types"
+      ],
+      "@core/*": [
+        "src/app/core/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ],
+      "@features/*": [
+        "src/app/features/*"
+      ],
+      "@layout/*": [
+        "src/app/layout/*"
       ]
     }
   },

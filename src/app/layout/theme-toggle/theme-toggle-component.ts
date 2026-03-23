@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Themes, ThemeService } from '../../core/services/theme.service';
+import { Themes, ThemeService } from '@core/services/theme.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -7,7 +7,7 @@ import {
   MatDialogRef,
   MatDialogTitle
 } from '@angular/material/dialog';
-import { IPolygon } from '../../../../weather/services/polygons-store.service';
+import { IPolygon } from '@features/weather/services/polygons-store.service';
 import { PolygonSettings } from './polygon-settings-section';
 import { MapService } from '../../../services/map.service';
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
@@ -30,6 +30,7 @@ import { MatButton } from '@angular/material/button';
     MatListOption,
     MatButton,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PolygonSettingsComponent implements OnInit {
   mapsService = inject(MapService);

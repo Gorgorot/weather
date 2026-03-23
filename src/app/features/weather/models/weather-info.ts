@@ -3,13 +3,8 @@ import { OpenMeteoCurrent } from './openmeteo-current';
 import { OpenmeteoDaily } from './openmeteo-dailty';
 import { OpenmeteoHourly } from './openmeteo-hourly';
 import { LngLat } from 'ymaps3';
-import { MathHelper } from '../../../shared/utils/math-helper';
-
-export enum OpenMeteoDataTypes {
-  CURRENT = 'CURRENT',
-  HOURLY = 'HOURLY',
-  DAILY = 'DAILY',
-}
+import { MathHelper } from '@shared/utils/math-helper';
+import { OpenMeteoDataTypes } from './openmeteo-data-types';
 
 export interface IOpenMeteoRowInfoParam {
   key: string;
@@ -36,11 +31,8 @@ export class WeatherInfo {
   color: string = '';
   objectId: number = 0;
   center: LngLat = [0, 0];
-  /** Площадь в м² */
   area: number = 0;
-  /** Периметр в метрах */
   perimeter: number = 0;
-  /** Количество вершин */
   vertexCount: number = 0;
 
   constructor(title: string, color: string, objectId: number, center: LngLat, openmeteoData: WeatherApiResponse | null, allowedTypes: IOpenMeteoSelectedData[], polygonCoordinates?: LngLat[]) {
@@ -62,6 +54,10 @@ export class WeatherInfo {
 
   private init(openmeteoData: WeatherApiResponse, allowedTypes: IOpenMeteoSelectedData[]): void {
     allowedTypes.forEach((value) => {
+      if (!value.keys.length) {
+        return;
+      }
+
       const adapterFactory = this.getDataByType(openmeteoData, value.type);
       const adapter = adapterFactory(value.keys);
 

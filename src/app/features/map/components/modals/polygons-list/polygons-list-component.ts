@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Injector } from '@angular/core';
 import { MapService } from '../../../services/map.service';
-import { IPolygon } from '../../../../weather/services/polygons-store.service';
+import { IPolygon } from '@features/weather/services/polygons-store.service';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { PolygonSettingsComponent } from '../polygon-settings/polygon-settings-component';
@@ -32,15 +32,15 @@ export interface IPolygonsListResult {
     MatIconButton,
     MatTooltip,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PolygonsListComponent {
-  mapService = inject(MapService);
-  matDialog = inject(MatDialog);
-  bottomSheetRef = inject<MatBottomSheetRef<PolygonsListComponent>>(MatBottomSheetRef);
-
-  polygons = this.mapService.polygons;
-
-  PolygonsListAction = PolygonsListAction;
+  readonly PolygonsListAction = PolygonsListAction;
+  private readonly mapService = inject(MapService);
+  readonly polygons = this.mapService.polygons;
+  private readonly matDialog = inject(MatDialog);
+  private readonly injector = inject(Injector);
+  private readonly bottomSheetRef = inject<MatBottomSheetRef<PolygonsListComponent>>(MatBottomSheetRef);
 
   onListItemClick(polygon: IPolygon, action: PolygonsListAction) {
     switch (action) {
@@ -49,7 +49,7 @@ export class PolygonsListComponent {
         break;
       }
       case PolygonsListAction.EDIT: {
-        return this.matDialog.open(PolygonSettingsComponent, { data: polygon });
+        return this.matDialog.open(PolygonSettingsComponent, { data: polygon, injector: this.injector });
       }
       case PolygonsListAction.REMOVE: {
         return this.mapService.removePolygon(polygon);

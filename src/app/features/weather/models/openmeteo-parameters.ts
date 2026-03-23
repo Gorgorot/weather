@@ -1,4 +1,4 @@
-import { OpenMeteoDataTypes } from './weather-info';
+import { OpenMeteoDataTypes } from './openmeteo-data-types';
 
 export enum OpenmeteoHourlyParameters {
   temperature_2m = 'temperature_2m',

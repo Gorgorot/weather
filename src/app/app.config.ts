@@ -15,10 +15,10 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { routes } from './app.routes';
-import { DA_DATA_API_KEY, MAP_API_KEY } from './core/tokens.provider';
-import { dbConfig } from './core/db.config';
-import { ThemeService } from './core/services/theme.service';
-import { ICONS } from './core/icons';
+import { DA_DATA_API_KEY, MAP_API_KEY } from '@core/tokens.provider';
+import { dbConfig } from '@core/db.config';
+import { ThemeService } from '@core/services/theme.service';
+import { ICONS } from '@core/icons';
 import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {

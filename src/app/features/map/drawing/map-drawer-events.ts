@@ -1,6 +1,6 @@
 import { Observable, Subject } from 'rxjs';
 import { DrawingMode } from './map-drawer.models';
-import { IPolygon } from '../../weather/services/polygons-store.service';
+import { IPolygon } from '@features/weather/services/polygons-store.service';
 import type { IMapDrawerAddPolygonEvent } from './map-manager';
 
 export class MapDrawerEvents {

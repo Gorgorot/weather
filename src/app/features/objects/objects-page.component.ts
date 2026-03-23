@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
-import { ObjectsService } from '../weather/services/objects.service';
-import { PolygonsStoreService } from '../weather/services/polygons-store.service';
-import { ThemeDirective } from '../../core/directives/theme.directive';
-import { WeatherCardComponent } from '../../shared/components/weather-card/weather-card.component';
+import { ObjectsService } from '@features/weather/services/objects.service';
+import { PolygonsStoreService } from '@features/weather/services/polygons-store.service';
+import { ThemeDirective } from '@core/directives/theme.directive';
+import { WeatherCardComponent } from '@shared/components/weather-card/weather-card.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';

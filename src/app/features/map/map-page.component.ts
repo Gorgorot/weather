@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MapViewComponent } from './components/map-view/map-view.component';
-import { TitleService } from '../../core/services/title.service';
+import { TitleService } from '@core/services/title.service';
 
 @Component({
   selector: 'app-map-page',

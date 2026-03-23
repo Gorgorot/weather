@@ -1,17 +1,18 @@
 import { inject, Injectable, Injector, signal } from '@angular/core';
-import { MAP_API_KEY } from '../../../core/tokens.provider';
+import { MAP_API_KEY } from '@core/tokens.provider';
 import { filter, map, of, switchMap, take, tap } from 'rxjs';
 import { LngLat, YMapLocationRequest } from 'ymaps3';
 import { MapManager } from '../drawing/map-manager';
 import { DrawingMode } from '../drawing/map-drawer.models';
-import { IPolygon, PolygonsStoreService } from '../../weather/services/polygons-store.service';
+import { IPolygon, PolygonsStoreService } from '@features/weather/services/polygons-store.service';
 import { MapDialogsService } from './map-dialogs.service';
 import { AddPolygonModalComponent } from '../components/modals/add-polygon-modal/add-polygon-modal.component';
 import { PolygonsListComponent } from '../components/modals/polygons-list/polygons-list-component';
-import { OpenMeteoDataTypes, WeatherInfo } from '../../weather/models/weather-info';
+import { WeatherInfo } from '@features/weather/models/weather-info';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { WeatherApiService } from '../../weather/services/weather-api.service';
+import { WeatherApiService } from '@features/weather/services/weather-api.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { OpenMeteoDataTypes } from '@features/weather/models/openmeteo-data-types';
 
 export enum MapApiLoadState {
   RESOLVED = 'RESOLVED',

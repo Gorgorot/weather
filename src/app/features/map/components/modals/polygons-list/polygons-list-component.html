@@ -1,7 +1,7 @@
-@let list = polygons();
+@let _polygons = polygons();
 
 <mat-list>
-  @for (item of list; track item.id) {
+  @for (item of _polygons; track item.id) {
     <mat-list-item>
       {{ item.name }}
       <div class="list-item-actions" matListItemMeta>

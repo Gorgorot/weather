@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, effect, inject, input, output, signal } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { IOpenMeteoRowInfoParam, WeatherInfo } from '../../../weather/models/weather-info';
+import { IOpenMeteoRowInfoParam, WeatherInfo } from '@features/weather/models/weather-info';
 import * as echarts from 'echarts/core';
 import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
 import { EChartsCoreOption } from 'echarts';
@@ -9,8 +9,8 @@ import { GridComponent, TitleComponent, TooltipComponent } from 'echarts/compone
 import { BarChart, GaugeChart, LineChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 import { QuickInfoService } from './quick-info.service';
-import { IconAccentWrapper } from '../../../../shared/components/icon-accent/icon-accent-wrapper.component';
-import { WindRoseComponent } from '../../../../shared/components/wind-rose/wind-rose.component';
+import { IconAccentWrapper } from '@shared/components/icon-accent/icon-accent-wrapper.component';
+import { WindRoseComponent } from '@shared/components/wind-rose/wind-rose.component';
 
 echarts.use([
   TitleComponent,
