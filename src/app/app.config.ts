@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideToastr } from 'ngx-toastr';
 import { NgxIndexedDBModule } from 'ngx-indexed-db';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -27,7 +26,6 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(),
-    provideAnimationsAsync(),
     provideToastr({ positionClass: 'toast-bottom-left' }),
     importProvidersFrom(NgxIndexedDBModule.forRoot(dbConfig)),
     {
