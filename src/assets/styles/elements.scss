@@ -21,3 +21,13 @@
     ))
   }
 }
+
+.mat-mdc-outlined-button {
+  &.button-sm {
+    @include mat.button-overrides((
+      outlined-container-height: 32px,
+      outlined-label-text-size: 12px,
+      outlined-horizontal-padding: 16px,
+    ))
+  }
+}

@@ -2,121 +2,180 @@
   display: block;
   border-radius: 12px;
   overflow: hidden;
-  background: #141722;
-  border: 1px solid #2a2a3a;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.3);
+  background: #161928;
+  border: 1px solid #252840;
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
 
   &:hover {
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4);
-    border-color: #3a3a4a;
-  }
-
-  &.light-theme {
-    background: #ffffff;
-    border-color: #dde0ea;
-    box-shadow: var(--lt-shadow-md);
-
-    &:hover {
-      box-shadow: var(--lt-shadow-lg);
-      border-color: #c5c9d8;
-    }
-
-    .weather-card {
-      &__name {
-        color: var(--lt-text-primary);
-      }
-
-      &__coords {
-        border-color: var(--lt-border-subtle);
-        background: var(--lt-surface-raised);
-      }
-
-      &__coord {
-        border-bottom-color: var(--lt-border-subtle);
-      }
-
-      &__coord-label {
-        color: var(--lt-text-muted);
-      }
-
-      &__coord-value {
-        color: var(--lt-text-secondary);
-      }
-    }
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    border-color: #353850;
   }
 
   .weather-card {
     display: flex;
-    flex-direction: row;
-    height: 100%;
+    flex-direction: column;
 
-    &__color-bar {
-      width: 4px;
-      flex-shrink: 0;
+    &__accent {
+      height: 3px;
+      width: 100%;
     }
 
-    &__content {
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-      flex: 1 1 0;
-      min-width: 0;
-      gap: 16px;
+    &__header {
+      padding: 16px 16px 2px;
     }
 
     &__name {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
-      color: #e0e0e0;
-      letter-spacing: 0.01em;
+      color: #eaeaef;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-
-    &__coords {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #1e2030;
+      margin-bottom: 20px;
     }
 
     &__coord {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 8px 12px;
-      border-bottom: 1px solid #1e2030;
-
-      &:last-child {
-        border-bottom: none;
-      }
+      gap: 4px;
+      padding: 0 16px 12px;
     }
 
-    &__coord-label {
+    &__coord-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+      color: #555570;
+    }
+
+    &__coord-text {
       font-size: 11px;
-      color: #8a8a9a;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    &__coord-value {
-      font-size: 13px;
-      font-weight: 600;
-      color: #c0c0d0;
+      color: #555570;
       font-variant-numeric: tabular-nums;
     }
 
-    &__actions {
+    &__body {
+      padding: 0 12px 12px;
+    }
+
+    &__stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    &__stat {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      gap: 8px;
-      margin-top: auto;
+      gap: 5px;
+      padding: 5px 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 8px;
+    }
+
+    &__stat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+      color: #555570;
+      flex-shrink: 0;
+    }
+
+    &__stat-value {
+      font-size: 12px;
+      color: #9a9ab0;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    &__footer {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-top: 1px solid #252840;
+
+      .disabled {
+        pointer-events: none;
+        opacity: 0.35;
+      }
+    }
+
+    &__action {
+      color: #7a7aaa;
+
+      &:hover {
+        color: #acacff;
+      }
+
+      &:disabled {
+        pointer-events: none;
+        opacity: 0.35;
+      }
+
+      &--danger {
+        margin-left: auto;
+        color: #7a5555;
+
+        &:hover {
+          color: #ff5c5c;
+        }
+      }
+    }
+  }
+
+  &.light-theme {
+    background: #ffffff;
+    border-color: #e2e4ed;
+
+    &:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .weather-card {
+      &__name {
+        color: var(--lt-text-primary, #1a1d2e);
+      }
+
+      &__coord-icon {
+        color: var(--lt-text-muted, #9ea3b4);
+      }
+
+      &__coord-text {
+        color: var(--lt-text-muted, #9ea3b4);
+      }
+
+      &__stat {
+        background: rgba(0, 0, 0, 0.04);
+      }
+
+      &__stat-icon {
+        color: var(--lt-text-muted, #9ea3b4);
+      }
+
+      &__stat-value {
+        color: var(--lt-text-secondary, #6b7080);
+      }
+
+      &__footer {
+        border-top-color: var(--lt-border-subtle, #eceef5);
+      }
+
+      &__action {
+        color: var(--lt-text-muted, #9ea3b4);
+
+        &:hover {
+          color: var(--lt-accent, #5a6aee);
+        }
+
+        &--danger {
+          color: #c0a0a0;
+
+          &:hover {
+            color: #e53935;
+          }
+        }
+      }
     }
   }
 }

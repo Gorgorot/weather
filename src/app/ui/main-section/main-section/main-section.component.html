@@ -1,9 +1,9 @@
-<mat-drawer-container autosize class="drawer-container">
-  <mat-drawer #drawer [class.collapsed]="collapsed()" class="navigation-container" mode="side" opened>
+<div class="drawer-container">
+  <div [class.collapsed]="collapsed()" class="navigation-container">
     <ng-content select="nav-content"/>
-  </mat-drawer>
+  </div>
 
   <div class="content-container">
     <ng-content select="main-content"/>
   </div>
-</mat-drawer-container>
+</div>

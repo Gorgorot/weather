@@ -29,6 +29,7 @@ import { ToastrService } from 'ngx-toastr';
   ]
 })
 export class ObjectsPageComponent {
+  weatherPending = this.objectsService.weatherPending;
   private readonly objectsService = inject(ObjectsService);
   displayEmptyState = computed(() => {
     const objects = this.objectsService.objects();
@@ -39,8 +40,7 @@ export class ObjectsPageComponent {
   private router = inject(Router);
   private readonly toastr = inject(ToastrService);
   private readonly polygonsStoreService = inject(PolygonsStoreService);
-
-  weatherLoadFailed = this.objectsService.weatherLoadFailed;
+  private readonly activatedRoute = inject(ActivatedRoute);
   objectWeatherInfo = this.objectsService.objectWeatherInfo;
   loading = this.objectsService.loading;
   currentWeatherInfo = computed(() => {
@@ -54,7 +54,6 @@ export class ObjectsPageComponent {
       map(data => Number(data['id'])),
     )
   );
-  private readonly activatedRoute = inject(ActivatedRoute);
 
   constructor() {
     effect(() => {

@@ -3,6 +3,7 @@ import { OpenMeteoCurrent } from './openmeteo-current';
 import { OpenmeteoDaily } from './openmeteo-dailty';
 import { OpenmeteoHourly } from './openmeteo-hourly';
 import { LngLat } from 'ymaps3';
+import { MathHelper } from '../math-helper';
 
 export enum OpenMeteoDataTypes {
   CURRENT = 'CURRENT',
@@ -35,12 +36,24 @@ export class WeatherInfo {
   color: string = '';
   objectId: number = 0;
   center: LngLat = [0, 0];
+  /** Площадь в м² */
+  area: number = 0;
+  /** Периметр в метрах */
+  perimeter: number = 0;
+  /** Количество вершин */
+  vertexCount: number = 0;
 
-  constructor(title: string, color: string, objectId: number, center: LngLat, openmeteoData: WeatherApiResponse | null, allowedTypes: IOpenMeteoSelectedData[]) {
+  constructor(title: string, color: string, objectId: number, center: LngLat, openmeteoData: WeatherApiResponse | null, allowedTypes: IOpenMeteoSelectedData[], polygonCoordinates?: LngLat[]) {
     this.title = title;
     this.color = color;
     this.objectId = objectId;
     this.center = center;
+
+    if (polygonCoordinates && polygonCoordinates.length >= 3) {
+      this.area = MathHelper.getPolygonArea(polygonCoordinates);
+      this.perimeter = MathHelper.getPolygonPerimeter(polygonCoordinates);
+      this.vertexCount = polygonCoordinates.length;
+    }
 
     if (openmeteoData) {
       this.init(openmeteoData, allowedTypes);

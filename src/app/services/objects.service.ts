@@ -2,25 +2,39 @@ import { inject, Injectable, signal } from '@angular/core';
 import { IPolygon, PolygonsStoreService } from './polygons-store.service';
 import { OpenMeteoDataTypes, WeatherInfo } from '../weather/weather-info';
 import { WeatherApiService } from './weather-api.service';
-import { catchError, filter, map, mergeMap, Observable, of, pairwise, startWith, tap, timeout, zip } from 'rxjs';
+import { LngLat } from 'ymaps3';
+import {
+  filter,
+  map,
+  merge,
+  mergeMap,
+  Observable,
+  of,
+  pairwise,
+  share,
+  startWith,
+  takeUntil,
+  tap,
+  timer,
+  zip
+} from 'rxjs';
 import { OpenmeteoDataTypeToQueryName } from '../weather/openmeteo-parameters';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ToastrService } from 'ngx-toastr';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { ToastrService } from 'ngx-toastr';
 
 @UntilDestroy()
 @Injectable()
 export class ObjectsService {
   private readonly polygonsStoreService = inject(PolygonsStoreService);
   private readonly weatherApiService = inject(WeatherApiService);
-  loading = signal(false);
-  private readonly toastr = inject(ToastrService);
+  weatherPending = signal(false);
 
-  weatherLoadFailed = signal(false);
+  loading = signal(false);
+  private readonly toastrService = inject(ToastrService);
   objects = this.polygonsStoreService.allPolygons;
   private readonly _objectWeatherInfo = signal<WeatherInfo[] | undefined>(undefined);
   objectWeatherInfo = this._objectWeatherInfo.asReadonly();
-
   private readonly objectsWatcher = rxMethod((data: Observable<IPolygon[]>) => {
     return data.pipe(
       startWith([] as IPolygon[]),
@@ -36,7 +50,7 @@ export class ObjectsService {
       filter(objects => Boolean(objects.length)),
       tap(() => {
         this.loading.set(true);
-        this.weatherLoadFailed.set(false);
+        this.weatherPending.set(false);
       }),
       mergeMap(objects => {
         const queries = objects.map(item => {
@@ -46,22 +60,33 @@ export class ObjectsService {
             return acc;
           }, {} as Record<string, string>);
 
-          return this.weatherApiService.fetch(item.center, req);
+          return item.requestedParameters!.length ? this.weatherApiService.fetch(item.center, req) : of(null);
         });
 
-        return zip(queries).pipe(
-          timeout(5000),
-          catchError(() => {
-            this.toastr.error('Не удалось получить информацию о погоде');
-            this.loading.set(false);
-            this.weatherLoadFailed.set(true);
+        const request$ = zip(queries).pipe(share());
 
-            return of(null);
-          }),
-          map(data => ({ weatherData: data, objects, })),
-        )
+        const delayed$ = timer(5000).pipe(
+          takeUntil(request$),
+          map(() => ({ weatherData: null as null, objects, pending: true })),
+        );
+
+        const result$ = request$.pipe(
+          map(data => ({ weatherData: data, objects, pending: false })),
+        );
+
+        return merge(delayed$, result$);
       }),
-      tap(() => this.loading.set(false)),
+      tap(data => {
+        this.loading.set(false);
+        this.weatherPending.set(data.pending);
+
+        if (data.pending) {
+          this.toastrService.info('Запрашиваем погодные данные, подождите...', undefined, { positionClass: 'toast-bottom-right' });
+        } else {
+          this.toastrService.clear();
+          this.toastrService.success('Погодные данные получены', undefined, { positionClass: 'toast-bottom-right' });
+        }
+      }),
       map(data => {
         return data.objects.map((object, index) => {
           const weatherData = data.weatherData ? data.weatherData[index] : null;
@@ -86,6 +111,7 @@ export class ObjectsService {
                 keys: object.requestedParameters!.find(v => v.type === OpenMeteoDataTypes.HOURLY)!.selected,
               }
             ],
+            object.geometry.coordinates[0] as LngLat[],
           );
         })
       }),

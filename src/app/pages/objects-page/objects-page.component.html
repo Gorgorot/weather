@@ -10,7 +10,7 @@
       <div class="objects-list">
         @for (item of _objectWeatherInfo; track item.objectId) {
           <app-weather-card (additionalInfo)="onCardAdditionalInfo($event)" (delete)="onDeleteObject($event)"
-                            [hideDetails]="weatherLoadFailed()" [weatherInfo]="item"/>
+                            [detailsDisabled]="weatherPending()" [weatherInfo]="item"/>
         }
       </div>
     </section>

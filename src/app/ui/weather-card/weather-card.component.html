@@ -2,32 +2,60 @@
 @let _center = _weatherInfo.center;
 
 <div class="weather-card">
-  <div [style.background]="_weatherInfo.color" class="weather-card__color-bar"></div>
+  <div [style.background]="_weatherInfo.color" class="weather-card__accent"></div>
 
-  <div class="weather-card__content">
+  <div class="weather-card__header">
     <div [matTooltip]="_weatherInfo.title" class="weather-card__name"
          matTooltipPosition="above">{{ _weatherInfo.title }}
     </div>
+  </div>
 
-    <div class="weather-card__coords">
-      <div class="weather-card__coord">
-        <span class="weather-card__coord-label">Долгота</span>
-        <span class="weather-card__coord-value">{{ _center[0] | number: '1.4-4' }}</span>
-      </div>
-      <div class="weather-card__coord">
-        <span class="weather-card__coord-label">Широта</span>
-        <span class="weather-card__coord-value">{{ _center[1] | number: '1.4-4' }}</span>
+  <div class="weather-card__coord">
+    <mat-icon class="weather-card__coord-icon">place</mat-icon>
+    <span class="weather-card__coord-text">{{ _center[1] | number: '1.4-4' }}, {{ _center[0] | number: '1.4-4' }}</span>
+  </div>
+
+  @let _area = formattedArea();
+  @let _perimeter = formattedPerimeter();
+  @let _vertexCount = _weatherInfo.vertexCount;
+
+  @if (_area) {
+    <div class="weather-card__body">
+      <div class="weather-card__stats">
+        <div class="weather-card__stat" matTooltip="Площадь" matTooltipPosition="above">
+          <mat-icon class="weather-card__stat-icon">square_foot</mat-icon>
+          <span class="weather-card__stat-value">{{ _area }}</span>
+        </div>
+        <div class="weather-card__stat" matTooltip="Периметр" matTooltipPosition="above">
+          <mat-icon class="weather-card__stat-icon">straighten</mat-icon>
+          <span class="weather-card__stat-value">{{ _perimeter }}</span>
+        </div>
+        <div class="weather-card__stat" matTooltip="Вершины" matTooltipPosition="above">
+          <mat-icon class="weather-card__stat-icon">timeline</mat-icon>
+          <span class="weather-card__stat-value">{{ _vertexCount }}</span>
+        </div>
       </div>
     </div>
+  }
 
-    <div class="weather-card__actions">
-      @if (!hideDetails()) {
-        <button (click)="additionalInfo.emit(_weatherInfo.objectId)" class="button-primary button-sm" mat-flat-button>
-          Подробнее
-        </button>
-      }
-      <button (click)="delete.emit(_weatherInfo.objectId)" class="button-warn button-sm" mat-flat-button>Удалить
+  <div class="weather-card__footer">
+    @if (!hideDetails()) {
+      <button (click)="additionalInfo.emit(_weatherInfo.objectId)" [disabled]="detailsDisabled()"
+              class="weather-card__action" mat-icon-button
+              matTooltip="Подробнее" matTooltipPosition="above">
+        <mat-icon>info_outline</mat-icon>
       </button>
-    </div>
+      <a [class.disabled]="detailsDisabled()" [queryParams]="{ id: _weatherInfo.objectId }"
+         class="weather-card__action" mat-icon-button
+         matTooltip="По часам" matTooltipPosition="above"
+         routerLink="/hourly">
+        <mat-icon>schedule</mat-icon>
+      </a>
+    }
+    <button (click)="delete.emit(_weatherInfo.objectId)"
+            class="weather-card__action weather-card__action--danger" mat-icon-button
+            matTooltip="Удалить" matTooltipPosition="above">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
   </div>
 </div>

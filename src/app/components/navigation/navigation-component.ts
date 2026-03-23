@@ -1,7 +1,8 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
 import { ThemeDirective } from '../../directives/theme.directive';
 
 @Component({
@@ -10,7 +11,8 @@ import { ThemeDirective } from '../../directives/theme.directive';
     RouterLink,
     MatIcon,
     RouterLinkActive,
-    MatTooltip
+    MatTooltip,
+    MatIconButton,
   ],
   hostDirectives: [
     ThemeDirective,
@@ -20,6 +22,8 @@ import { ThemeDirective } from '../../directives/theme.directive';
 })
 export class NavigationComponent {
   collapsed = input(false);
+  title = input('');
+  toggleSideNav = output();
 
   links = [
     {

@@ -1,46 +1,46 @@
-@use '@angular/material' as mat;
+$transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+$nav-width: 220px;
+$nav-collapsed-width: 64px;
 
 :host {
   flex: 1 1 auto;
 
   .drawer-container {
+    display: flex;
     height: 100%;
     background: #0e1120;
   }
 
   .navigation-container {
-    @include mat.sidenav-overrides((
-      container-width: 220px,
-      container-background-color: #141722,
-    ));
-
-    border-radius: 0;
+    width: $nav-width;
+    min-width: $nav-width;
+    background: #141722;
     border-right: 1px solid #2a2a3a;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
-    transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: $transition, min-width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
 
-    ::ng-deep .mat-drawer-inner-container {
-      overflow-x: hidden;
-    }
-
     &.collapsed {
-      @include mat.sidenav-overrides((
-        container-width: 64px,
-      ));
+      width: $nav-collapsed-width;
+      min-width: $nav-collapsed-width;
     }
   }
 
   .content-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
     height: 100%;
+    min-width: 0;
   }
 
   &.light-theme {
-    .navigation-container {
-      @include mat.sidenav-overrides((
-        container-background-color: #ffffff,
-      ));
+    .drawer-container {
+      background: #f5f6fa;
+    }
 
+    .navigation-container {
+      background: #ffffff;
       border-right-color: #dde0ea;
       box-shadow: 4px 0 16px rgba(26, 29, 46, 0.08);
     }

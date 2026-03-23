@@ -1,0 +1,47 @@
+@let _weatherInfo = weatherInfo();
+@let _chartSets = chartSets();
+
+<section class="content-wrapper">
+  <div class="page-header">
+    <a class="back-link" routerLink="/objects">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <h1 class="page-title">
+      @if (_weatherInfo) {
+        Почасовая погода — {{ _weatherInfo.title }}
+      } @else {
+        Почасовая погода
+      }
+    </h1>
+  </div>
+
+  @if (!loading() && _weatherInfo && _chartSets.length) {
+    <section class="charts-grid">
+      @for (set of _chartSets; track set.param.key) {
+        <div [options]="set.chartData" class="chart-card" echarts></div>
+      }
+    </section>
+  }
+
+  @if (!loading() && _weatherInfo && !_chartSets.length) {
+    <div class="empty-state">
+      <p class="empty-state__text">
+        Для этого объекта не выбраны почасовые параметры.
+        <br/>
+        Настройте параметры на <a class="empty-state__link" routerLink="/map">карте</a>
+      </p>
+    </div>
+  }
+
+  @if (!loading() && !_weatherInfo) {
+    <div class="empty-state">
+      <p class="empty-state__text">Объект не найден</p>
+    </div>
+  }
+</section>
+
+@if (loading()) {
+  <div class="loader-overlay">
+    <mat-spinner diameter="48"/>
+  </div>
+}

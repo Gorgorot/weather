@@ -3,10 +3,56 @@ $icon-size: 24px;
 :host {
   display: flex;
   flex-direction: column;
-  padding: 20px 12px;
-  gap: 4px;
   overflow: hidden;
+  height: 100%;
 
+  .nav-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 65px;
+    padding: 0 12px;
+    border-bottom: 1px solid #2a2a3a;
+    flex-shrink: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    &--collapsed {
+      justify-content: center;
+      padding: 0;
+
+      .nav-title {
+        display: none;
+        width: 0;
+        opacity: 0;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .nav-burger {
+    color: #e0e0e0;
+    flex-shrink: 0;
+  }
+
+  .nav-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #e0e0e0;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 12px;
+    gap: 4px;
+    flex: 1 1 0;
+    overflow: hidden;
+  }
 
   .link {
     display: flex;
@@ -87,6 +133,18 @@ $icon-size: 24px;
   }
 
   &.light-theme {
+    .nav-header {
+      border-bottom-color: #dde0ea;
+    }
+
+    .nav-burger {
+      color: #1a1d2e;
+    }
+
+    .nav-title {
+      color: #1a1d2e;
+    }
+
     .link {
       &:not(.link-active):hover {
         background: #eef0f6;
