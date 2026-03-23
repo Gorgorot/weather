@@ -1,59 +1,69 @@
-# Weather
+# Weather Browser
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
+Веб-приложение для визуализации погодных данных по географическим регионам с интерактивной картой и детальной аналитикой.
 
-## Development server
+## Стек технологий
 
-To start a local development server, run:
+| Категория            | Технологии                        |
+|----------------------|-----------------------------------|
+| **Фреймворк**        | Angular 21, TypeScript 5.9        |
+| **UI-компоненты**    | Angular Material, Angular CDK     |
+| **Стейт-менеджмент** | NgRx Signals                      |
+| **Графики**          | ECharts + ngx-echarts             |
+| **Карты**            | Yandex Maps API v3                |
+| **Хранилище**        | IndexedDB (ngx-indexed-db)        |
+| **Стили**            | SCSS, кастомная тема (dark/light) |
+| **API погоды**       | Open-Meteo                        |
+| **Геокодинг**        | DaData Suggestions API            |
+
+## Назначение и функционал
+
+Приложение позволяет отслеживать погодные данные (настраиваемые) на произвольных областях карты России по трём выборкам: "текущая", "почасовая", "дневная".
+Управление объектами происходит на карте, где можно менять отображаемые параметры для каждого объекта.
+
+### Карта (`/map`)
+
+- Интерактивная карта на базе Yandex Maps
+- Рисование полигонов для определения географических регионов
+- Управление полигонами (создание, редактирование, удаление)
+- Отображение текущей температуры и влажности
+- Поиск адресов и городов через DaData
+
+### Объекты (`/objects`)
+
+- Список всех созданных географических объектов
+- Отображение подробной информации из выборок: "текущая", "дневная"
+
+### Почасовой прогноз (`/hourly`)
+
+- Отображение графиков, построенных на основе выборки почасовых параметров погоды
+
+## Локальный запуск
+
+### Требования
+
+- Node.js 18+
+- npm
+
+### Установка и запуск
 
 ```bash
-ng serve
+# Установка зависимостей
+npm install
+
+# Запуск dev-сервера (http://localhost:4200)
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Другие команды
 
 ```bash
-ng generate component component-name
+# Сборка для продакшена
+npm run build
+
+# Сборка в watch-режиме
+npm run watch
+
+# Запуск unit-тестов
+npm test
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
